@@ -1,7 +1,8 @@
 #include <stdlib.h>
+#include <string>
 
 using namespace std;
-#define MEM_SIZE 32000
+#define INST_MEM_SIZE 1024
 #define WORD_SIZE_IN_BITS 32
 
 class Fetch
@@ -9,14 +10,14 @@ class Fetch
 
 public:
 	Fetch();
-	unsigned char* Do;
-    unsigned char* getInstructionMemory();
+	string Do;
+    string* getInstructionMemory();
     int getPC();
     int getMemorySize();
     void run();
 
 private: 
-	unsigned char* instructionMemory;
+	string* instructionMemory;
 	int pc;
 	void adder();
 };

@@ -1,16 +1,19 @@
 #include <stdio.h>
 #include <png.h>
-#include "fetch.h"
-#include "decoder.h"
 #include "execute.h"
 #include "memory.h"
+#include "vectorProcessor.h"
 #include <stdlib.h>
+#include <string>
+#include <bitset>
+#include <iostream>
+using namespace std;
 
 
 void unitTest_image(){
   Fetch fetch;
   int imageSize = fetch.getMemorySize();
-  unsigned char* instructionMemory = (unsigned char*)malloc(sizeof(char)*fetch.getMemorySize());
+  string* instructionMemory;
   instructionMemory = fetch.getInstructionMemory();
   FILE *fp;
   FILE *fp2;
@@ -25,33 +28,17 @@ void unitTest_image(){
 void unitTest_fetch(){
   Fetch fetch;
   int contador = 0;
-  unsigned char* instructionMemory = (unsigned char*)malloc(sizeof(char)*fetch.getMemorySize());
+  string* instructionMemory = new string[INST_MEM_SIZE];
   instructionMemory = fetch.getInstructionMemory();
+  //SumV Rv0 Rv1 Rv2
+  instructionMemory[0] = "00000000000101000000000000000000";
+  //SumV Rv0 Rv1 Rv2
+  instructionMemory[1] = "00010000000101000000000000000000";
 
-  for (int i = 0; i < 4; ++i)
-  {
-    instructionMemory[i] = '0';
-  }
-  for (int i = 4; i < 6; ++i)
-  {
-    instructionMemory[i] = '1';
-  }
-  for (int i = 6; i < 8; ++i)
-  {
-    instructionMemory[i] = '0';
-  }
-  for (int i = 8; i < 12; ++i)
-  {
-    instructionMemory[i] = '1';
-  }
   printf("Do Instruction Memory: ");
   while(contador <= 60){
     fetch.run();
-    for (int i = 0; i < 32; ++i)
-    {
-        printf("%c",fetch.Do[i]);
-    }
-    printf("\n");
+    cout << fetch.Do << "\n";
     usleep(1000000);
     contador = contador + 1;
   }
@@ -146,16 +133,90 @@ void unitTest_Execute()
   printf("%d\n",exe.result[7]);  
 }
 
+void unitTest_VectorProcessor()
+{
+  VectorProcessor vp;
+  vp.run();
+}
+
+void unitTest_IntegerToBinaryString()
+{
+  char u = stoi("1010",nullptr,2);
+  printf("%d\n", u);
+  string s = bitset< 32 >(12).to_string();
+  cout << s << '\n';
+
+}
+
+string* returnString()
+{
+  string* str = new string[10];
+  str[0] = "aa";
+  str[2] = "ab";
+  str[3] = "ac";
+  str[4] = "ar";
+  return str;
+}
+
+void printString(string* aa)
+{
+  cout << aa[0][0] << "\n";
+  cout << aa[2][1] << "\n";
+  cout << aa[3][1] << "\n";
+}
+
+void unitTest_FetchDecoder()
+{
+  Fetch fetch;
+  int contador = 0;
+  string* instructionMemory = new string[INST_MEM_SIZE];
+  instructionMemory = fetch.getInstructionMemory();
+  //SumV Rv0 Rv1 Rv2
+  instructionMemory[0] = "00000000000101000000000000000000";
+  //SumV Rv0 Rv1 Rv2
+  instructionMemory[1] = "00010000000101000000000000000000";
+  Fetch_Decoder_Register fetch_decoder_register;
+  
+  while(contador <= 60){
+    printf("___________________\n");
+    fetch.run();
+    fetch_decoder_register.saveRegister(fetch.Do);
+    usleep(1000000);
+    contador = contador + 1;
+    printf("------Datos de salida------\n");
+    printf("---------------------------\n");
+    cout << "OpDo" << fetch_decoder_register.OpDo << "\n";
+    cout << "FDo" << fetch_decoder_register.FDo << "\n";
+    cout << "RvgDo" << fetch_decoder_register.RvgDo << "\n";
+    cout << "RvsDo" << fetch_decoder_register.RvsDo << "\n";
+    cout << "RvpDo" << fetch_decoder_register.RvpDo << "\n";
+    cout << "ImmNumDo" << fetch_decoder_register.ImmNumDo << "\n";
+    fetch_decoder_register.changeOutPutRegisters();
+  }
+}
+
 
 int main(){
+  //printString(returnString());
+  unitTest_FetchDecoder();
 
+  /*
+  string str[100]; 
+  str[0] = "asdfasdf";
+  str[1] = "asdfasdf";
+  str[2] = "asdfasdf";
+  cout << str[0][2] << "\n";
+  cout << str[1][5] << "\n";
+  cout << str[2] << "\n";
+  */
 
+  //unitTest_VectorProcessor();
   //unitTest_ScalarRegisters();
   //unitTest_DecoderRegisters();
   //unitTest_image();
   //unitTest_fetch();
-  unitTest_Execute();
-
+  //unitTest_Execute();
+  
   /*
 
   int* a = (int *)malloc(sizeof(int)*4);
