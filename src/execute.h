@@ -9,16 +9,27 @@ using namespace std;
 class Execute
 {
 	public:
-		Execute();
 		unsigned char* result;
+		unsigned int resultScalar;
+		unsigned char* DinMD;
+		int AddrA;
+		int Imm;
+
+		Execute();
+		void run(short OpCode, unsigned char * DoVA, unsigned char * DoVB, int DoSA, int DoSB, int ImmNew);
 		char getAluvalue(short alu);
-		unsigned char* sum(unsigned char* vector1, unsigned char* vector2);
-		unsigned char* sub(unsigned char* vector1, unsigned char* vector2);
-		unsigned char* xxor(unsigned char* vector1, unsigned char* vector2);
-		unsigned char* shfl(unsigned char* vector1, unsigned char* vector2);
-		unsigned char* shfr(unsigned char* vector1, unsigned char* vector2);
-		unsigned char* shflc(unsigned char* vector1, unsigned char* vector2);
-		unsigned char* shfrc(unsigned char* vector1, unsigned char* vector2);
+		unsigned char* sumV(unsigned char* vector1, unsigned char* vector2);
+		unsigned char* subV(unsigned char* vector1, unsigned char* vector2);
+		unsigned char* sumVS(unsigned char* vector1, unsigned char data2);
+		unsigned char* subVS(unsigned char* vector1, unsigned char data2);
+		int sumS(int vector1, int vector2);
+		int subS(int vector1, int vector2);
+		unsigned char* xxor(unsigned char* vector1, unsigned char data2);
+		unsigned char* shfl(unsigned char* vector1, unsigned char data2);
+		unsigned char* shfr(unsigned char* vector1, unsigned char data2);
+		unsigned char* shflc(unsigned char* vector1, unsigned char data2);
+		unsigned char* shfrc(unsigned char* vector1, unsigned char data2);
+		void printDout();
 	private:
 		Alu alu0;
 		Alu alu1;

@@ -76,15 +76,35 @@ void unitTest_Execute()
   vectorPrueba1[6] = 3;
   vectorPrueba1[7] = 253;
 
+  int scalar1 = 2;
+  int scalar2 = 3;
+  int imm = 5;
   vectorPrueba2[0] = 6;
   vectorPrueba2[1] = 7;
-  vectorPrueba2[2] = 1;
+  vectorPrueba2[2] = 10;
   vectorPrueba2[3] = 2;
-  vectorPrueba2[4] = 1;
-  vectorPrueba2[5] = 2;
+  vectorPrueba2[4] = 111;
+  vectorPrueba2[5] = 20;
   vectorPrueba2[6] = 3;
-  vectorPrueba2[7] = 5;
-  exe.shflc(vectorPrueba1,vectorPrueba2);
+  vectorPrueba2[7] = 255;
+  //SumV
+  //exe.run(0,vectorPrueba1,vectorPrueba2,scalar1,scalar2,imm);
+  //SubV
+  //exe.run(1,vectorPrueba1,vectorPrueba2,scalar1,scalar2,imm);
+  //SumVS
+  exe.run(2,vectorPrueba1,vectorPrueba2,scalar1,scalar2,imm);
+  //SubVs
+  //exe.run(3,vectorPrueba1,vectorPrueba2,scalar1,scalar2,imm);
+  //XorVS
+  //exe.run(4,vectorPrueba1,vectorPrueba2,scalar1,scalar2,imm);
+  //SumS
+  //exe.run(5,vectorPrueba1,vectorPrueba2,scalar1,scalar2,imm);
+  //SubS
+  //exe.run(6,vectorPrueba1,vectorPrueba2,scalar1,scalar2,imm);
+
+  /*printf("Scalar1:  %d\n",scalar1);
+  printf("Scalar2:  %d\n",scalar2);
+
    printf("vectorPrueba1: ");
   for (int i = 0; i < 8; ++i)
   {
@@ -94,7 +114,8 @@ void unitTest_Execute()
   for (int i = 0; i < 8; ++i)
   {
     printf("%d ",vectorPrueba2[i]);  
-  }
+  }*/
+  /*
   printf("\n");
   printf("exe.result[0]: %d\n",exe.result[0]);
   printf("exe.result[1]: %d\n",exe.result[1]);
@@ -104,6 +125,10 @@ void unitTest_Execute()
   printf("exe.result[5]: %d\n",exe.result[5]);
   printf("exe.result[6]: %d\n",exe.result[6]);
   printf("exe.result[7]: %d\n",exe.result[7]);  
+
+  printf("Integer result: %d\n",exe.resultScalar);
+  */
+  exe.printDout();
 }
 
 void unitTest_VectorProcessor()
@@ -226,7 +251,7 @@ void unitTest_DecoderExecuteRegister()
       DoVB = (unsigned char*)"puquis";
     }
     printf("---------------------NuevoCiclo----------------\n");
-    der.run(DoVA,DoVB,DoSA,DoSB,1);
+    der.run(DoVA,DoVB,DoSA,DoSB,1,1);
 
     cout << "-----------Datos de salida---------------- \n";
     cout << "DoVA: " << der.DoVA << '\n';
@@ -335,7 +360,7 @@ void unitTest_fetch_reg_deco_reg()
   decoder.setVectorRegister(1,vectorPrueba2); 
   decoder.setVectorRegister(2,vectorPrueba3); 
   decoder.setVectorRegister(3,vectorPrueba4);
-  decoder.setScalarRegister(0,'o'); 
+  decoder.setScalarRegister(0,2000); 
   decoder.setScalarRegister(1,'l');
   decoder.setScalarRegister(2,'a'); 
   
@@ -371,7 +396,7 @@ void unitTest_fetch_reg_deco_reg()
     fetch.run();
     fetch_decoder_register.saveRegister(fetch.Do);
     decoder.run(fetch_decoder_register.OpDo, fetch_decoder_register.FDo, fetch_decoder_register.RvgDo, fetch_decoder_register.RvsDo, fetch_decoder_register.RvpDo, fetch_decoder_register.ImmNumDo);
-    decoder_execute_register.run(decoder.DoVA,decoder.DoVB,decoder.DoSA,decoder.DoSB,decoder.OpDout);
+    decoder_execute_register.run(decoder.DoVA,decoder.DoVB,decoder.DoSA,decoder.DoSB,decoder.OpDout,decoder.Imm);
     usleep(1000000);
     
 
@@ -392,6 +417,86 @@ void unitTest_fetch_reg_deco_reg()
 
 }
 
+void unitTest_fetch_reg_deco_reg_exe()
+{
+
+  Fetch fetch;
+  Fetch_Decoder_Register fetch_decoder_register;
+  Decoder decoder;
+  Decoder_Execute_Register decoder_execute_register;  
+  Execute execute;
+
+  unsigned char* vectorPrueba1 = (unsigned char*)calloc(8,sizeof(unsigned char));
+  unsigned char* vectorPrueba2 = (unsigned char*)calloc(8,sizeof(unsigned char));
+  unsigned char* vectorPrueba3 = (unsigned char*)calloc(8,sizeof(unsigned char));
+  unsigned char* vectorPrueba4 = (unsigned char*)calloc(8,sizeof(unsigned char));
+  vectorPrueba1 = (unsigned char*)"DrStein";
+  vectorPrueba2 = (unsigned char*)"Hallowee";
+  vectorPrueba3 = (unsigned char*)"IWantOut";
+  vectorPrueba4 = (unsigned char*)"KeeperSe";
+  decoder.setVectorRegister(0,vectorPrueba1); 
+  decoder.setVectorRegister(1,vectorPrueba2); 
+  decoder.setVectorRegister(2,vectorPrueba3); 
+  decoder.setVectorRegister(3,vectorPrueba4);
+  decoder.setScalarRegister(0,2000); 
+  decoder.setScalarRegister(1,'l');
+  decoder.setScalarRegister(2,'a'); 
+  
+
+  int contador = 0;
+  string* instructionMemory = new string[INST_MEM_SIZE];
+  instructionMemory = fetch.getInstructionMemory();
+  //SumV Rv0 Rv1 Rv2
+  //                       OP|F|Rg|Rs|Rp|
+  instructionMemory[0] = "00000000000101000000000000000000";
+  //SumV Rv0 Rv3 Rv6
+  //                       OP|F|Rg|Rs|Rp|
+  instructionMemory[1] = "00010000001111000000000000000000";
+  //SumV Rv0 Rv1 Rv2
+  instructionMemory[2] = "00100000000101000000000000000000";
+  //SumV Rv1 Rv1 Rv5
+  //                       OP|F|Rg|Rs|Rp|
+  instructionMemory[3] = "00110000100110100000000000000000";
+
+  
+  while(contador <= 60)
+  {
+
+    printf("\n");
+    printf("+++++++++++++++++++++++++New Iteration+++++++++++++++++++++++++++++++++++\n");
+    printf("+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++\n");
+    printf("\n");
+    //printf("--------------------------------------------------------------\n");
+    //printf("--------------------------------------------------------------\n");
+
+    //Part of the algorithm
+
+    fetch.run();
+    fetch_decoder_register.saveRegister(fetch.Do);
+    decoder.run(fetch_decoder_register.OpDo, fetch_decoder_register.FDo, fetch_decoder_register.RvgDo, fetch_decoder_register.RvsDo, fetch_decoder_register.RvpDo, fetch_decoder_register.ImmNumDo);
+    decoder_execute_register.run(decoder.DoVA,decoder.DoVB,decoder.DoSA,decoder.DoSB,decoder.OpDout,decoder.Imm);
+    execute.run(decoder_execute_register.OpDout,decoder_execute_register.DoVA,decoder_execute_register.DoVB,decoder_execute_register.DoSA,decoder_execute_register.DoSB, decoder_execute_register.ImmOut);
+    usleep(1000000);
+    
+
+    //-----------------Prints--------------
+    decoder.printVectorRegisters();
+    decoder.printScalarRegisters();
+    fetch_decoder_register.printDin();
+    fetch_decoder_register.printDout();
+    decoder.printDout();
+    decoder_execute_register.printDin();
+    decoder_execute_register.printDout();
+    execute.printDout();
+    //-----------------Change Registers
+    fetch_decoder_register.changeOutPutRegisters();
+    decoder_execute_register.changeOutPutRegisters();
+    //-----------------Others
+    contador = contador + 1;
+  }
+
+}
+
 int main(){
   //printString(returnString());
   //unitTest_FetchDecoderRegisters();
@@ -402,9 +507,10 @@ int main(){
   //unitTest_DecoderExecuteRegister();
   //unitTest_image();
   //unitTest_fetch();
-  unitTest_Execute();
+  //unitTest_Execute();
   //unitTest_Alu();
   //unitTest_fetch_reg_deco_reg();
+  unitTest_fetch_reg_deco_reg_exe();
 
 
   /*

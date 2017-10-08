@@ -9,7 +9,7 @@ Decoder::Decoder()
 	DoAScalar = ' ';
 }
 
-void Decoder::run(short OpDo, short FDo, short RvgDo, short RvsDo, short RvpDo, short ImmNumDo)
+void Decoder::run(short OpDo, short FDo, short RvgDo, short RvsDo, short RvpDo, int ImmNumDo)
 {
 	DoVA = getVectorRegisterA(RvsDo);
 	DoVB = getVectorRegisterB(RvpDo);
@@ -119,7 +119,7 @@ unsigned char* Decoder::getVector(short outPort, int direction)
 
 //-------------------------------------------------Scalar
 
-char Decoder::getScalarRegister(short direction)
+unsigned int Decoder::getScalarRegister(short direction)
 {
 	if(direction > QUANTITY_SCALAR_REGISTERS)
 	{
@@ -133,7 +133,7 @@ char Decoder::getScalarRegister(short direction)
 
 }
 
-void Decoder::setScalarRegister(short direction, unsigned char data)
+void Decoder::setScalarRegister(short direction, int data)
 {
 	if(direction > SCALAR_REGISTERS_MEM_SIZE)
 	{
@@ -149,7 +149,7 @@ void Decoder::printScalarRegisters()
 {
 	for (int j = 0; j < QUANTITY_SCALAR_REGISTERS; ++j)
 	{
-		printf("Register %d: %c\n",j,scalarRegisters[j]);
+		printf("Register %d: %d\n",j,scalarRegisters[j]);
 	}
 }
 

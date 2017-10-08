@@ -6,13 +6,14 @@ Decoder_Execute_Register::Decoder_Execute_Register()
 	DoVB = (unsigned char*)calloc(REGISTER_SIZE_IN_BYTES_DER, sizeof(unsigned char));
 }
 
-void Decoder_Execute_Register::run(unsigned char* DVA, unsigned char* DVB, unsigned char DSA,unsigned char DSB, short Op)
+void Decoder_Execute_Register::run(unsigned char* DVA, unsigned char* DVB, int DSA,int DSB, short Op,int Imm)
 {
 	DiVA = DVA;
 	DiVB = DVB;
 	DiSA = DSA;
 	DiSB = DSB;
 	OpDin = Op;
+	ImmIn = Imm;
 }
 
 void Decoder_Execute_Register::changeOutPutRegisters()
@@ -25,6 +26,7 @@ void Decoder_Execute_Register::changeOutPutRegisters()
 		DoSA = DiSA;
 		DoSB = DiSB;
 		OpDout = OpDin;
+		ImmOut = ImmIn;
 }
 
 void Decoder_Execute_Register::printDin()

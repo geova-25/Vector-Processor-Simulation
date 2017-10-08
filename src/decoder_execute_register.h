@@ -15,16 +15,18 @@ class Decoder_Execute_Register
 		void changeOutPutRegisters();
 		void printDin();
 		void printDout();
-		void run(unsigned char* DVA, unsigned char* DVB, unsigned char DSA,unsigned char DSB, short Op);
+		void run(unsigned char* DVA, unsigned char* DVB, int DSA,int DSB, short Op, int ImmIn);
 		unsigned char* DoVA;
 		unsigned char* DoVB;
-		unsigned char  DoSA;
-		unsigned char  DoSB;
+		int  DoSA;
+		int  DoSB;
+		int ImmOut;
 		short OpDout;
 	private:
 		short OpDin;
 		unsigned char* DiVA;
 		unsigned char* DiVB;
-		unsigned char  DiSA;
-		unsigned char  DiSB;
+		int  DiSA;
+		int  DiSB;
+		int ImmIn;
 };

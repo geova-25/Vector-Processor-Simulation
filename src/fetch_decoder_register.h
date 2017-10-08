@@ -21,7 +21,7 @@ class Fetch_Decoder_Register
  		short RvgDo;
   	short RvsDo;
   	short RvpDo;
-  	short ImmNumDo;
+  	int ImmNumDo;
  		void saveRegister(string DoInstrutionMemory);
  		void changeOutPutRegisters();
     void printDout();
@@ -34,5 +34,5 @@ class Fetch_Decoder_Register
  		short RvgDin;
   	short RvsDin;
   	short RvpDin;
-  	short ImmNumDin;
+  	int ImmNumDin;
 };
