@@ -19,6 +19,34 @@ void Fetch_Decoder_Register::changeOutPutRegisters(){
   ImmNumDo = ImmNumDin;
 }
 
+void Fetch_Decoder_Register::printDout()
+{
+  printf("--------------Datos de salida registro fetch-deco-------------\n");
+  printf("--------------------------------------------------------------\n");
+
+  cout << "OpDo: "     << this->OpDo     << "\n";
+  cout << "FDo: "      << this->FDo      << "\n";
+  cout << "RvgDo: "    << this->RvgDo    << "\n";
+  cout << "RvsDo: "    << this->RvsDo    << "\n";
+  cout << "RvpDo: "    << this->RvpDo    << "\n";
+  cout << "ImmNumDo: " << this->ImmNumDo << "\n";
+
+}
+
+void Fetch_Decoder_Register::printDin()
+{
+  printf("--------------Datos de entrada registro fetch-deco------------\n");
+  printf("--------------------------------------------------------------\n");
+  printf("---Numbers:---\n");
+  printf("OpDin:  %d\n",OpDin);
+  printf("FDin:   %d\n",FDin);
+  printf("RvgDin: %d\n",RvgDin);
+  printf("RvsDin: %d\n",RvsDin);
+  printf("RvpDin: %d\n",RvpDin);
+  printf("ImmNumDin:  %d\n",ImmNumDin);
+  
+}
+
 void Fetch_Decoder_Register::saveRegister(string DoInstrutionMemory)
 {
 
@@ -102,30 +130,6 @@ void Fetch_Decoder_Register::saveRegister(string DoInstrutionMemory)
   RvsDin = stoi(RvsStr,nullptr,2);
 
 
-  printf("---Numbers:---\n");
-  printf("Op:  %d\n",OpDin);
-  printf("F:   %d\n",FDin);
-  printf("Rvg: %d\n",RvgDin);
-  printf("Rvs: %d\n",RvsDin);
-  printf("Rvp: %d\n",RvpDin);
-  printf("ImmNum:  %d\n",ImmNumDin);
 
-  printf("---Chars:---\n");
-
-  printf("Op:  %s\n",OpC);
-  printf("F:   %s\n",FC);
-  printf("Rvg: %s\n",RvgC);
-  printf("Rvs: %s\n",RvsC);
-  printf("Rvp: %s\n",RvpC);
-  printf("Imm_bin: %s\n",ImmC);
-
-  printf("---Strings:---\n");
-
-  printf("OpStr: %s\n" ,OpStr.c_str());
-  printf("FStr: %s\n"  ,FStr.c_str());
-  printf("RvgStr: %s\n",RvgStr.c_str());
-  printf("RvsStr: %s\n",RvsStr.c_str());
-  printf("RvpStr: %s\n",RvpStr.c_str());
-  printf("ImmStr: %s\n",ImmStr.c_str());
 
 }

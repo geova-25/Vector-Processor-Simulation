@@ -1,5 +1,6 @@
 #include <stdlib.h>
 #include <stdio.h>
+#include <iostream>
 using namespace std;
 
 #define VECTOR_REGISTERS_MEM_SIZE 64
@@ -22,6 +23,13 @@ class Decoder
 		void setScalarRegister(short din, unsigned char data);
 		char getScalarRegister(short direction);
 		void printScalarRegisters();
+		void printDout();
+		void run(short OpDo, short FDo, short RvgDo, short RvsDo, short RvpDo, short ImmNumDo);
+		unsigned char* DoVA;
+		unsigned char* DoVB;
+		unsigned char DoSA;
+		unsigned char DoSB;
+		unsigned char Imm;
 	private:
 		unsigned char* DoAVector;
 		unsigned char* DoBVector;

@@ -24,6 +24,8 @@ class Fetch_Decoder_Register
   	short ImmNumDo;
  		void saveRegister(string DoInstrutionMemory);
  		void changeOutPutRegisters();
+    void printDout();
+    void printDin();
 
 	private:
 		//----------Fetch-Decoder Registers 

@@ -4,7 +4,29 @@ Decoder::Decoder()
 {
 	DoAVector = (unsigned char*)calloc(REGISTER_SIZE_IN_BYTES, sizeof(unsigned char));
 	DoBVector = (unsigned char*)calloc(REGISTER_SIZE_IN_BYTES, sizeof(unsigned char));
+	DoVA= (unsigned char*)calloc(REGISTER_SIZE_IN_BYTES, sizeof(unsigned char));
+	DoVB = (unsigned char*)calloc(REGISTER_SIZE_IN_BYTES, sizeof(unsigned char));
 	DoAScalar = ' ';
+}
+
+void Decoder::run(short OpDo, short FDo, short RvgDo, short RvsDo, short RvpDo, short ImmNumDo)
+{
+	DoVA = getVectorRegisterA(RvsDo);
+	DoVB = getVectorRegisterB(RvpDo);
+	DoSA = getScalarRegister(RvsDo);
+	DoSB = getScalarRegister(RvpDo);
+	Imm  = ImmNumDo;
+}
+
+void Decoder::printDout()
+{
+	printf("--------------Datos de salida deco----------------------------\n");
+	printf("--------------------------------------------------------------\n");
+
+	cout << "DoVA: " << this->DoVA << "\n";
+	cout << "DoVB: " << this->DoVB << "\n";
+	cout << "DoSA: " << this->DoSA << "\n";
+	cout << "DoSB: " << this->DoSB << "\n";
 }
 
 //-------------------------------------------------Vector
@@ -38,30 +60,31 @@ void Decoder::setVectorRegister(short din, unsigned char* vector)
 
 void Decoder::printVectorRegistersByBytes()
 {
+  printf("--------------Registers Values--------------------------------\n");
+  printf("--------------------------------------------------------------\n");
 	for (int i = 0; i < REGISTER_SIZE_IN_BYTES; ++i)
 	{
 		for (int j = 0; j < REGISTER_SIZE_IN_BYTES; ++j)
 		{
 			printf("Vector %d[%d]: %c\n",i,j,vectorRegisters[i*REGISTER_SIZE_IN_BYTES + j]);
-		}
-		printf("-------");
+		}	
 	}
-
 }
 
 
 void Decoder::printVectorRegisters()
 {
+	printf("--------------Registers Values--------------------------------\n");
+	printf("--------------------------------------------------------------\n");
 	for (int i = 0; i < REGISTER_SIZE_IN_BYTES; ++i)
 	{
-		printf("-------\n Vector[%d]: ",i);
+		printf("Vector[%d]: ",i);
 		for (int j = 0; j < REGISTER_SIZE_IN_BYTES; ++j)
 		{
 			printf("%c",vectorRegisters[i*REGISTER_SIZE_IN_BYTES + j]);
 		}
 		printf("\n");
 	}
-
 }
 
 unsigned char* Decoder::getVector(short outPort, int direction)

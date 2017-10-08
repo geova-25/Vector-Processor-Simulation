@@ -3,7 +3,7 @@
 #include <unistd.h>
 #include <string>
 #include <iostream>
-
+#include "decoder_execute_register.h"
 #include "fetch.h"
 #include "decoder.h"
 #include "fetch_decoder_register.h"
