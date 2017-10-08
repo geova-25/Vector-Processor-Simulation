@@ -30,7 +30,9 @@ class Decoder
 		unsigned char DoSA;
 		unsigned char DoSB;
 		unsigned char Imm;
+		short OpDout;
 	private:
+		//short OpDin;
 		unsigned char* DoAVector;
 		unsigned char* DoBVector;
 		unsigned char  DoAScalar;

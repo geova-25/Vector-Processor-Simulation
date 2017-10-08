@@ -16,6 +16,7 @@ void Decoder::run(short OpDo, short FDo, short RvgDo, short RvsDo, short RvpDo, 
 	DoSA = getScalarRegister(RvsDo);
 	DoSB = getScalarRegister(RvpDo);
 	Imm  = ImmNumDo;
+	OpDout = OpDo;
 }
 
 void Decoder::printDout()
@@ -27,6 +28,7 @@ void Decoder::printDout()
 	cout << "DoVB: " << this->DoVB << "\n";
 	cout << "DoSA: " << this->DoSA << "\n";
 	cout << "DoSB: " << this->DoSB << "\n";
+	cout << "OpDout: " << this->OpDout << "\n";
 }
 
 //-------------------------------------------------Vector

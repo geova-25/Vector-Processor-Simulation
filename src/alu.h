@@ -7,10 +7,14 @@ class Alu
 	public:
 		Alu();
 		char result;
-		unsigned char sum (char op1, char op2);
-		unsigned char sub (char op1, char op2);
-		unsigned char xxor(char op1, char op2);
-		unsigned char mult(char op1, char op2);
-		unsigned char div (char op1, char op2);
+		unsigned char sum (unsigned char op1, unsigned char op2);
+		unsigned char sub (unsigned char op1, unsigned char op2);
+		unsigned char xxor(unsigned char op1, unsigned char op2);
+		unsigned char shfl(unsigned char op1, unsigned char op2);
+		unsigned char shfr(unsigned char op1, unsigned char op2);
+		unsigned char shflc(unsigned char op1, unsigned char op2);
+		unsigned char shfrc(unsigned char op1, unsigned char op2);
+		unsigned char mult(unsigned char op1, unsigned char op2);
+		unsigned char div (unsigned char op1, unsigned char op2);
 	private:
 };

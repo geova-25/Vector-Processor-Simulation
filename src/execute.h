@@ -14,6 +14,11 @@ class Execute
 		char getAluvalue(short alu);
 		unsigned char* sum(unsigned char* vector1, unsigned char* vector2);
 		unsigned char* sub(unsigned char* vector1, unsigned char* vector2);
+		unsigned char* xxor(unsigned char* vector1, unsigned char* vector2);
+		unsigned char* shfl(unsigned char* vector1, unsigned char* vector2);
+		unsigned char* shfr(unsigned char* vector1, unsigned char* vector2);
+		unsigned char* shflc(unsigned char* vector1, unsigned char* vector2);
+		unsigned char* shfrc(unsigned char* vector1, unsigned char* vector2);
 	private:
 		Alu alu0;
 		Alu alu1;
