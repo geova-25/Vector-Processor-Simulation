@@ -6,7 +6,7 @@ Execute::Execute()
 	DinMD = (unsigned char*)calloc(SIZE_OF_RESULT_BYTES,sizeof(unsigned char));
 }
 
-void Execute::run(short OpCode, unsigned char * DoVA, unsigned char * DoVB, int DoSA, int DoSB, int ImmNew)
+void Execute::run(short OpCode, unsigned char * DoVA, unsigned char * DoVB, int DoSA, int DoSB, int ImmNew, short RgNew)
 {
   printf("ScalarA:  %d\n",DoSA);
   printf("ScalarB:  %d\n",DoSB);
@@ -24,6 +24,7 @@ void Execute::run(short OpCode, unsigned char * DoVA, unsigned char * DoVB, int 
    printf("\n");
 	DinMD = DoVB;
 	AddrA = DoSA;
+	this->RgOutExe = RgNew;
 	switch(OpCode)
 	{
 		case 0:
@@ -162,6 +163,7 @@ void Execute::printDout()
 	printf("DinMD[6]: %d\n",this->DinMD[6]);
 	printf("DinMD[7]: %d\n",this->DinMD[7]);
 	printf("Addr: %d\n",this->AddrA);
+	printf("RgOutExe: %d\n",this->RgOutExe);
 }
 
 unsigned char* Execute::xxor(unsigned char* vector1, unsigned char data2){

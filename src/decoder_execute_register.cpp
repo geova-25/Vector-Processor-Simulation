@@ -6,14 +6,15 @@ Decoder_Execute_Register::Decoder_Execute_Register()
 	DoVB = (unsigned char*)calloc(REGISTER_SIZE_IN_BYTES_DER, sizeof(unsigned char));
 }
 
-void Decoder_Execute_Register::run(unsigned char* DVA, unsigned char* DVB, int DSA,int DSB, short Op,int Imm)
+void Decoder_Execute_Register::run(unsigned char* DVA, unsigned char* DVB, int DSA,int DSB, short Op,int Imm, short RgNew)
 {
-	DiVA = DVA;
-	DiVB = DVB;
-	DiSA = DSA;
-	DiSB = DSB;
+	DiVA  = DVA;
+	DiVB  = DVB;
+	DiSA  = DSA;
+	DiSB  = DSB;
 	OpDin = Op;
 	ImmIn = Imm;
+	RgIn  = RgNew;
 }
 
 void Decoder_Execute_Register::changeOutPutRegisters()
@@ -27,6 +28,7 @@ void Decoder_Execute_Register::changeOutPutRegisters()
 		DoSB = DiSB;
 		OpDout = OpDin;
 		ImmOut = ImmIn;
+		RgOut = RgIn;
 }
 
 void Decoder_Execute_Register::printDin()
@@ -38,6 +40,7 @@ void Decoder_Execute_Register::printDin()
 	cout << "DiSA: "  << this->DiSA  << '\n';
 	cout << "DiSB: "  << this->DiSB  << '\n';
 	cout << "OpDin: " << this->OpDin << '\n';
+	cout << "RgIn: "  << this->RgIn  << '\n';
 }
 
 void Decoder_Execute_Register::printDout()
@@ -49,4 +52,5 @@ void Decoder_Execute_Register::printDout()
 	cout << "DoSA: "   << this->DoSA   << '\n';
 	cout << "DoSB: "   << this->DoSB   << '\n';
 	cout << "OpDout: " << this->OpDout << '\n';
+	cout << "RgOut: "  << this->RgOut  << '\n';
 }

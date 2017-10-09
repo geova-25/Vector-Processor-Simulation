@@ -25,19 +25,25 @@ class Decoder
 		void printScalarRegisters();
 		void printDout();
 		void run(short OpDo, short FDo, short RvgDo, short RvsDo, short RvpDo, int ImmNumDo);
+		void setRegisters(unsigned char* vectorRegistersNew, unsigned int* scalarRegistersNew);
 		unsigned char* DoVA;
 		unsigned char* DoVB;
 		int DoSA;
 		int DoSB;
 		int Imm;
 		short OpDout;
+		short RgDecoOut;
 	private:
 		//short OpDin;
 		unsigned char* DoAVector;
 		unsigned char* DoBVector;
 		unsigned char  DoAScalar;
-		char vectorRegisters[VECTOR_REGISTERS_MEM_SIZE];
+		unsigned char* vectorRegisters;
+		unsigned int*  scalarRegisters;
+		/*
+		unsigned char vectorRegisters[VECTOR_REGISTERS_MEM_SIZE];
 		unsigned int scalarRegisters[SCALAR_REGISTERS_MEM_SIZE];
+		*/
 		unsigned char* getVector(short outPort, int direction);
 
 };

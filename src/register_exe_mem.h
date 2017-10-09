@@ -12,7 +12,7 @@ class Register_Exe_Mem{
   public:
     Register_Exe_Mem();
     void run(unsigned char* DoresultNew, unsigned char* DoDinMDNew,
-            int DoresultScalarNew, int DoAddrANew);
+            int DoresultScalarNew, int DoAddrANew, short RgNew);
     void changeOutPutRegisters();
     void printDin();
     void printDout();
@@ -20,7 +20,9 @@ class Register_Exe_Mem{
 		unsigned int DoresultScalar;
 		unsigned char* DoDinMD;
 		int DoAddrA;
+    short RgOut;
   private:
+    short RgIn;
     unsigned char* Dinresult;
 		unsigned int DinresultScalar;
 		unsigned char* DinMD;

@@ -16,7 +16,7 @@ class Execute
 		int Imm;
 
 		Execute();
-		void run(short OpCode, unsigned char * DoVA, unsigned char * DoVB, int DoSA, int DoSB, int ImmNew);
+		void run(short OpCode, unsigned char * DoVA, unsigned char * DoVB, int DoSA, int DoSB, int ImmNew, short RgNew);
 		char getAluvalue(short alu);
 		unsigned char* sumV(unsigned char* vector1, unsigned char* vector2);
 		unsigned char* subV(unsigned char* vector1, unsigned char* vector2);
@@ -30,6 +30,7 @@ class Execute
 		unsigned char* shflc(unsigned char* vector1, unsigned char data2);
 		unsigned char* shfrc(unsigned char* vector1, unsigned char data2);
 		void printDout();
+		short RgOutExe;
 	private:
 		Alu alu0;
 		Alu alu1;
@@ -40,4 +41,3 @@ class Execute
 		Alu alu6;
 		Alu alu7;
 };
-

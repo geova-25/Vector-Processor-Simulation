@@ -6,7 +6,15 @@ Decoder::Decoder()
 	DoBVector = (unsigned char*)calloc(REGISTER_SIZE_IN_BYTES, sizeof(unsigned char));
 	DoVA= (unsigned char*)calloc(REGISTER_SIZE_IN_BYTES, sizeof(unsigned char));
 	DoVB = (unsigned char*)calloc(REGISTER_SIZE_IN_BYTES, sizeof(unsigned char));
+	vectorRegisters = (unsigned char*)calloc(VECTOR_REGISTERS_MEM_SIZE,sizeof(unsigned char));
+	scalarRegisters = (unsigned int*)calloc(VECTOR_REGISTERS_MEM_SIZE,sizeof(int));
 	DoAScalar = ' ';
+}
+
+void Decoder::setRegisters(unsigned char* vectorRegistersNew,unsigned int* scalarRegistersNew)
+{
+	vectorRegisters = vectorRegistersNew;
+	scalarRegisters = scalarRegistersNew;
 }
 
 void Decoder::run(short OpDo, short FDo, short RvgDo, short RvsDo, short RvpDo, int ImmNumDo)
@@ -16,6 +24,7 @@ void Decoder::run(short OpDo, short FDo, short RvgDo, short RvsDo, short RvpDo, 
 	DoSA = getScalarRegister(RvsDo);
 	DoSB = getScalarRegister(RvpDo);
 	Imm  = ImmNumDo;
+	RgDecoOut = RvgDo;
 	OpDout = OpDo;
 }
 
@@ -24,11 +33,12 @@ void Decoder::printDout()
 	printf("--------------Datos de salida deco----------------------------\n");
 	printf("--------------------------------------------------------------\n");
 
-	cout << "DoVA: " << this->DoVA << "\n";
-	cout << "DoVB: " << this->DoVB << "\n";
-	cout << "DoSA: " << this->DoSA << "\n";
-	cout << "DoSB: " << this->DoSB << "\n";
-	cout << "OpDout: " << this->OpDout << "\n";
+	cout << "DoVA: "      << this->DoVA 		 << "\n";
+	cout << "DoVB: "      << this->DoVB 		 << "\n";
+	cout << "DoSA: "      << this->DoSA			 << "\n";
+	cout << "DoSB: "      << this->DoSB			 << "\n";
+	cout << "RgDecoOut: " << this->RgDecoOut << "\n";
+	cout << "OpDout: "    << this->OpDout 	 << "\n";
 }
 
 //-------------------------------------------------Vector
@@ -69,7 +79,7 @@ void Decoder::printVectorRegistersByBytes()
 		for (int j = 0; j < REGISTER_SIZE_IN_BYTES; ++j)
 		{
 			printf("Vector %d[%d]: %c\n",i,j,vectorRegisters[i*REGISTER_SIZE_IN_BYTES + j]);
-		}	
+		}
 	}
 }
 
@@ -129,7 +139,7 @@ unsigned int Decoder::getScalarRegister(short direction)
 	else
 	{
 		return scalarRegisters[direction];
-	}	
+	}
 
 }
 
@@ -140,7 +150,7 @@ void Decoder::setScalarRegister(short direction, int data)
 		printf("Error solo existen %d registros escalaras, usted intento acceder al: %d",QUANTITY_SCALAR_REGISTERS,direction);
 	}
 	else
-	{	
+	{
 		scalarRegisters[direction] = data;
 	}
 }
@@ -152,8 +162,3 @@ void Decoder::printScalarRegisters()
 		printf("Register %d: %d\n",j,scalarRegisters[j]);
 	}
 }
-
-
-
-
-
