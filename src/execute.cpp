@@ -14,14 +14,14 @@ void Execute::run(short OpCode, unsigned char * DoVA, unsigned char * DoVB, int 
    printf("vectorPrueba1 VA: ");
   for (int i = 0; i < 8; ++i)
   {
-   printf("%d ",DoVA[i]);  
+   printf("%d ",DoVA[i]);
   }
   printf("\nvectorPrueba2 DoVB: ");
   for (int i = 0; i < 8; ++i)
   {
-    printf("%d ",DoVB[i]);  
+    printf("%d ",DoVB[i]);
   }
-   printf("\n");  
+   printf("\n");
 	DinMD = DoVB;
 	AddrA = DoSA;
 	switch(OpCode)
@@ -74,7 +74,7 @@ void Execute::run(short OpCode, unsigned char * DoVA, unsigned char * DoVB, int 
 			printf("Doing shift rigth circular vector-scalar\n");
 			this->shfrc(DoVA,ImmNew);
 			break;
-		default: 
+		default:
 			printf("Not using Alus");
 	}
 
@@ -142,6 +142,7 @@ void Execute::printDout()
 {
 
 	printf("\n");
+	printf("Result: %s\n",this->result);
 	printf("exe.result[0]: %d\n",this->result[0]);
 	printf("exe.result[1]: %d\n",this->result[1]);
 	printf("exe.result[2]: %d\n",this->result[2]);
@@ -149,9 +150,9 @@ void Execute::printDout()
 	printf("exe.result[4]: %d\n",this->result[4]);
 	printf("exe.result[5]: %d\n",this->result[5]);
 	printf("exe.result[6]: %d\n",this->result[6]);
-	printf("exe.result[7]: %d\n",this->result[7]);  
+	printf("exe.result[7]: %d\n",this->result[7]);
 	printf("Result Escalar: %d\n",resultScalar);
-	printf("DinMD:\n");
+	printf("DinMD: %s\n",this->DinMD);
 	printf("DinMD[0]: %d\n",this->DinMD[0]);
 	printf("DinMD[1]: %d\n",this->DinMD[1]);
 	printf("DinMD[2]: %d\n",this->DinMD[2]);

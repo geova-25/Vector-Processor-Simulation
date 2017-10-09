@@ -3,6 +3,7 @@
 #include "execute.h"
 #include "memory.h"
 #include "vectorProcessor.h"
+#include "register_exe_mem.h"
 #include <stdlib.h>
 #include <string>
 #include <bitset>
@@ -18,7 +19,7 @@ void unitTest_image(){
   FILE *fp;
   FILE *fp2;
    if ((fp = fopen("cat.data", "rb")) == NULL)
-      printf("No abierta"); 
+      printf("No abierta");
 
   fp2 = fopen("catAux2.data", "w"); //If not exist then creates it
   fread(instructionMemory,imageSize,1,fp);
@@ -108,12 +109,12 @@ void unitTest_Execute()
    printf("vectorPrueba1: ");
   for (int i = 0; i < 8; ++i)
   {
-   printf("%d ",vectorPrueba1[i]);  
+   printf("%d ",vectorPrueba1[i]);
   }
   printf("\nvectorPrueba2: ");
   for (int i = 0; i < 8; ++i)
   {
-    printf("%d ",vectorPrueba2[i]);  
+    printf("%d ",vectorPrueba2[i]);
   }*/
   /*
   printf("\n");
@@ -124,7 +125,7 @@ void unitTest_Execute()
   printf("exe.result[4]: %d\n",exe.result[4]);
   printf("exe.result[5]: %d\n",exe.result[5]);
   printf("exe.result[6]: %d\n",exe.result[6]);
-  printf("exe.result[7]: %d\n",exe.result[7]);  
+  printf("exe.result[7]: %d\n",exe.result[7]);
 
   printf("Integer result: %d\n",exe.resultScalar);
   */
@@ -183,7 +184,7 @@ void unitTest_DecoderRegisters()
   vectorPrueba1[7] = 'd';
   */
 
-  decoder.setVectorRegister(7,vectorPrueba1); 
+  decoder.setVectorRegister(7,vectorPrueba1);
   decoder.printVectorRegisters();
 
   vectorPrueba2 = decoder.getVectorRegisterB(7);
@@ -207,7 +208,7 @@ void unitTest_FetchDecoderRegisters()
   //SumV Rv0 Rv1 Rv2
   instructionMemory[1] = "00010000000101000000000000000000";
   Fetch_Decoder_Register fetch_decoder_register;
-  
+
   while(contador <= 60){
     printf("___________________\n");
     fetch.run();
@@ -226,6 +227,39 @@ void unitTest_FetchDecoderRegisters()
   }
 }
 
+void unitTest_Register_Exe_Mem()
+{
+  unsigned char* vectorPrueba1 = (unsigned char*)calloc(8,sizeof(unsigned char));
+  unsigned char* vectorPrueba2 = (unsigned char*)calloc(8,sizeof(unsigned char));
+  vectorPrueba1 = (unsigned char*)"DrStein";
+  vectorPrueba2 = (unsigned char*)"Halloween";
+  printf("p1V: %d\n", *"DrStein");
+  vectorPrueba1 = (unsigned char*)"DrStein";
+  printf("p2V: %d\n", *"Halloween");
+  vectorPrueba2 = (unsigned char*)"Halloween";
+  Register_Exe_Mem  register_exe_mem;
+  register_exe_mem.run(vectorPrueba1,vectorPrueba2,2,2);
+  register_exe_mem.printDin();
+  register_exe_mem.printDout();
+  register_exe_mem.changeOutPutRegisters();
+  printf("p1V: %d\n", *"RunAway");
+  vectorPrueba1 = (unsigned char*)"RunAway";
+  printf("p2V: %d\n", *"I can");
+  vectorPrueba2 = (unsigned char*)"I can";
+  register_exe_mem.run(vectorPrueba1,vectorPrueba2,5,4);
+  register_exe_mem.printDin();
+  register_exe_mem.printDout();
+register_exe_mem.changeOutPutRegisters();
+  printf("p1V: %d\n", *"Power");
+  vectorPrueba1 = (unsigned char*)"Power";
+  printf("p2V: %d\n", *"Keeper");
+  vectorPrueba2 = (unsigned char*)"I can";
+  register_exe_mem.run(vectorPrueba1,vectorPrueba2,7,7);
+  register_exe_mem.printDin();
+  register_exe_mem.printDout();
+
+}
+
 void unitTest_DecoderExecuteRegister()
 {
   Decoder_Execute_Register der;
@@ -237,7 +271,7 @@ void unitTest_DecoderExecuteRegister()
   DoVB = (unsigned char*)"Jajaja";
   unsigned char DoSA = 'j';
   unsigned char DoSB = 'h';
-  
+
   for (int i = 0; i < 3; ++i)
   {
     if(i == 1)
@@ -274,11 +308,11 @@ void unitTest_fetch_reg_deco()
   vectorPrueba2 = (unsigned char*)"Hallowee";
   vectorPrueba3 = (unsigned char*)"IWantOut";
   vectorPrueba4 = (unsigned char*)"KeeperSe";
-  decoder.setVectorRegister(0,vectorPrueba1); 
-  decoder.setVectorRegister(1,vectorPrueba2); 
-  decoder.setVectorRegister(2,vectorPrueba3); 
-  decoder.setVectorRegister(3,vectorPrueba4); 
-  
+  decoder.setVectorRegister(0,vectorPrueba1);
+  decoder.setVectorRegister(1,vectorPrueba2);
+  decoder.setVectorRegister(2,vectorPrueba3);
+  decoder.setVectorRegister(3,vectorPrueba4);
+
 
   int contador = 0;
   string* instructionMemory = new string[INST_MEM_SIZE];
@@ -288,7 +322,7 @@ void unitTest_fetch_reg_deco()
   //SumV Rv0 Rv1 Rv2
   instructionMemory[1] = "00010000000101000000000000000000";
   Fetch_Decoder_Register fetch_decoder_register;
-  
+
   while(contador <= 60)
   {
     decoder.printVectorRegisters();
@@ -301,7 +335,7 @@ void unitTest_fetch_reg_deco()
     fetch_decoder_register.saveRegister(fetch.Do);
     decoder.run(fetch_decoder_register.OpDo, fetch_decoder_register.FDo, fetch_decoder_register.RvgDo, fetch_decoder_register.RvsDo, fetch_decoder_register.RvpDo, fetch_decoder_register.ImmNumDo);
     usleep(1000000);
-    
+
     contador = contador + 1;
 
 
@@ -345,7 +379,7 @@ void unitTest_fetch_reg_deco_reg()
   Fetch fetch;
   Fetch_Decoder_Register fetch_decoder_register;
   Decoder decoder;
-  Decoder_Execute_Register decoder_execute_register;  
+  Decoder_Execute_Register decoder_execute_register;
 
 
   unsigned char* vectorPrueba1 = (unsigned char*)calloc(8,sizeof(unsigned char));
@@ -356,14 +390,14 @@ void unitTest_fetch_reg_deco_reg()
   vectorPrueba2 = (unsigned char*)"Hallowee";
   vectorPrueba3 = (unsigned char*)"IWantOut";
   vectorPrueba4 = (unsigned char*)"KeeperSe";
-  decoder.setVectorRegister(0,vectorPrueba1); 
-  decoder.setVectorRegister(1,vectorPrueba2); 
-  decoder.setVectorRegister(2,vectorPrueba3); 
+  decoder.setVectorRegister(0,vectorPrueba1);
+  decoder.setVectorRegister(1,vectorPrueba2);
+  decoder.setVectorRegister(2,vectorPrueba3);
   decoder.setVectorRegister(3,vectorPrueba4);
-  decoder.setScalarRegister(0,2000); 
+  decoder.setScalarRegister(0,2000);
   decoder.setScalarRegister(1,'l');
-  decoder.setScalarRegister(2,'a'); 
-  
+  decoder.setScalarRegister(2,'a');
+
 
   int contador = 0;
   string* instructionMemory = new string[INST_MEM_SIZE];
@@ -380,7 +414,7 @@ void unitTest_fetch_reg_deco_reg()
   //                       OP|F|Rg|Rs|Rp|
   instructionMemory[3] = "00110000100110100000000000000000";
 
-  
+
   while(contador <= 60)
   {
 
@@ -398,7 +432,7 @@ void unitTest_fetch_reg_deco_reg()
     decoder.run(fetch_decoder_register.OpDo, fetch_decoder_register.FDo, fetch_decoder_register.RvgDo, fetch_decoder_register.RvsDo, fetch_decoder_register.RvpDo, fetch_decoder_register.ImmNumDo);
     decoder_execute_register.run(decoder.DoVA,decoder.DoVB,decoder.DoSA,decoder.DoSB,decoder.OpDout,decoder.Imm);
     usleep(1000000);
-    
+
 
     //-----------------Prints--------------
     decoder.printVectorRegisters();
@@ -423,7 +457,7 @@ void unitTest_fetch_reg_deco_reg_exe()
   Fetch fetch;
   Fetch_Decoder_Register fetch_decoder_register;
   Decoder decoder;
-  Decoder_Execute_Register decoder_execute_register;  
+  Decoder_Execute_Register decoder_execute_register;
   Execute execute;
 
   unsigned char* vectorPrueba1 = (unsigned char*)calloc(8,sizeof(unsigned char));
@@ -434,14 +468,14 @@ void unitTest_fetch_reg_deco_reg_exe()
   vectorPrueba2 = (unsigned char*)"Hallowee";
   vectorPrueba3 = (unsigned char*)"IWantOut";
   vectorPrueba4 = (unsigned char*)"KeeperSe";
-  decoder.setVectorRegister(0,vectorPrueba1); 
-  decoder.setVectorRegister(1,vectorPrueba2); 
-  decoder.setVectorRegister(2,vectorPrueba3); 
+  decoder.setVectorRegister(0,vectorPrueba1);
+  decoder.setVectorRegister(1,vectorPrueba2);
+  decoder.setVectorRegister(2,vectorPrueba3);
   decoder.setVectorRegister(3,vectorPrueba4);
-  decoder.setScalarRegister(0,2000); 
+  decoder.setScalarRegister(0,2000);
   decoder.setScalarRegister(1,'l');
-  decoder.setScalarRegister(2,'a'); 
-  
+  decoder.setScalarRegister(2,'a');
+
 
   int contador = 0;
   string* instructionMemory = new string[INST_MEM_SIZE];
@@ -449,21 +483,23 @@ void unitTest_fetch_reg_deco_reg_exe()
   //SumV Rv0 Rv1 Rv2
   //                       OP|F|Rg|Rs|Rp|
   instructionMemory[0] = "00000000000101000000000000000000";
-  //SumV Rv0 Rv3 Rv6
+  //Sub Rv0 Rv3 Rv6
   //                       OP|F|Rg|Rs|Rp|
   instructionMemory[1] = "00010000001111000000000000000000";
-  //SumV Rv0 Rv1 Rv2
+  //SumVS Rv0 Rv1 Rv2
   instructionMemory[2] = "00100000000101000000000000000000";
-  //SumV Rv1 Rv1 Rv5
+  //SubVS Rv1 Rv1 Rv5
   //                       OP|F|Rg|Rs|Rp|
   instructionMemory[3] = "00110000100110100000000000000000";
+  instructionMemory[4] = "00110000100110100000000000000000";
+  instructionMemory[5] = "00110000100110100000000000000000";
 
-  
+
   while(contador <= 60)
   {
 
     printf("\n");
-    printf("+++++++++++++++++++++++++New Iteration+++++++++++++++++++++++++++++++++++\n");
+    printf("+++++++++++++++++++++++++New Iteration %d++++++++++++++++++++++++++++++++\n",contador);
     printf("+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++\n");
     printf("\n");
     //printf("--------------------------------------------------------------\n");
@@ -477,7 +513,7 @@ void unitTest_fetch_reg_deco_reg_exe()
     decoder_execute_register.run(decoder.DoVA,decoder.DoVB,decoder.DoSA,decoder.DoSB,decoder.OpDout,decoder.Imm);
     execute.run(decoder_execute_register.OpDout,decoder_execute_register.DoVA,decoder_execute_register.DoVB,decoder_execute_register.DoSA,decoder_execute_register.DoSB, decoder_execute_register.ImmOut);
     usleep(1000000);
-    
+
 
     //-----------------Prints--------------
     decoder.printVectorRegisters();
@@ -497,6 +533,93 @@ void unitTest_fetch_reg_deco_reg_exe()
 
 }
 
+void unitTest_fetch_reg_deco_reg_exe_reg()
+{
+
+  Fetch fetch;
+  Fetch_Decoder_Register fetch_decoder_register;
+  Decoder decoder;
+  Decoder_Execute_Register decoder_execute_register;
+  Execute execute;
+  Register_Exe_Mem register_exe_mem;
+
+  unsigned char* vectorPrueba1 = (unsigned char*)calloc(8,sizeof(unsigned char));
+  unsigned char* vectorPrueba2 = (unsigned char*)calloc(8,sizeof(unsigned char));
+  unsigned char* vectorPrueba3 = (unsigned char*)calloc(8,sizeof(unsigned char));
+  unsigned char* vectorPrueba4 = (unsigned char*)calloc(8,sizeof(unsigned char));
+  vectorPrueba1 = (unsigned char*)"DrStein";
+  vectorPrueba2 = (unsigned char*)"Hallowee";
+  vectorPrueba3 = (unsigned char*)"IWantOut";
+  vectorPrueba4 = (unsigned char*)"KeeperSe";
+  decoder.setVectorRegister(0,vectorPrueba1);
+  decoder.setVectorRegister(1,vectorPrueba2);
+  decoder.setVectorRegister(2,vectorPrueba3);
+  decoder.setVectorRegister(3,vectorPrueba4);
+  decoder.setScalarRegister(0,2000);
+  decoder.setScalarRegister(1,'l');
+  decoder.setScalarRegister(2,'a');
+
+
+  int contador = 0;
+  string* instructionMemory = new string[INST_MEM_SIZE];
+  instructionMemory = fetch.getInstructionMemory();
+  //SumV Rv0 Rv1 Rv2
+  //                       OP|F|Rg|Rs|Rp|
+  instructionMemory[0] = "00000000000101000000000000000000";
+  //Sub Rv0 Rv3 Rv6
+  //                       OP|F|Rg|Rs|Rp|
+  instructionMemory[1] = "00010000001111000000000000000000";
+  //SumVS Rv0 Rv1 Rv2
+  instructionMemory[2] = "00100000000101000000000000000000";
+  //SubVS Rv1 Rv1 Rv5
+  //                       OP|F|Rg|Rs|Rp|
+  instructionMemory[3] = "00110000100110100000000000000000";
+  instructionMemory[4] = "00110000100110100000000000000000";
+  instructionMemory[5] = "00110000100110100000000000000000";
+
+
+  while(contador <= 60)
+  {
+
+    printf("\n");
+    printf("+++++++++++++++++++++++++New Iteration %d++++++++++++++++++++++++++++++++\n",contador);
+    printf("+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++\n");
+    printf("\n");
+    //printf("--------------------------------------------------------------\n");
+    //printf("--------------------------------------------------------------\n");
+
+    //Part of the algorithm
+
+    fetch.run();
+    fetch_decoder_register.saveRegister(fetch.Do);
+    decoder.run(fetch_decoder_register.OpDo, fetch_decoder_register.FDo, fetch_decoder_register.RvgDo, fetch_decoder_register.RvsDo, fetch_decoder_register.RvpDo, fetch_decoder_register.ImmNumDo);
+    decoder_execute_register.run(decoder.DoVA,decoder.DoVB,decoder.DoSA,decoder.DoSB,decoder.OpDout,decoder.Imm);
+    execute.run(decoder_execute_register.OpDout,decoder_execute_register.DoVA,decoder_execute_register.DoVB,decoder_execute_register.DoSA,decoder_execute_register.DoSB, decoder_execute_register.ImmOut);
+    register_exe_mem.run(execute.result,execute.DinMD,execute.resultScalar,execute.AddrA);
+    usleep(1000000);
+
+
+    //-----------------Prints--------------
+    decoder.printVectorRegisters();
+    decoder.printScalarRegisters();
+    fetch_decoder_register.printDin();
+    fetch_decoder_register.printDout();
+    decoder.printDout();
+    decoder_execute_register.printDin();
+    decoder_execute_register.printDout();
+    execute.printDout();
+    register_exe_mem.printDin();
+    register_exe_mem.printDout();
+    //-----------------Change Registers
+    fetch_decoder_register.changeOutPutRegisters();
+    decoder_execute_register.changeOutPutRegisters();
+    register_exe_mem.changeOutPutRegisters();
+    //-----------------Others
+    contador = contador + 1;
+  }
+
+}
+
 int main(){
   //printString(returnString());
   //unitTest_FetchDecoderRegisters();
@@ -510,11 +633,12 @@ int main(){
   //unitTest_Execute();
   //unitTest_Alu();
   //unitTest_fetch_reg_deco_reg();
-  unitTest_fetch_reg_deco_reg_exe();
-
+  //unitTest_Register_Exe_Mem();
+  //unitTest_fetch_reg_deco_reg_exe();
+  unitTest_fetch_reg_deco_reg_exe_reg();
 
   /*
-  string str[100]; 
+  string str[100];
   str[0] = "asdfasdf";
   str[1] = "asdfasdf";
   str[2] = "asdfasdf";
