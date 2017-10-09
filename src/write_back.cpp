@@ -10,7 +10,8 @@ Write_Back::Write_Back()
 }
 
 void Write_Back::run(unsigned char* DoDataMemNew,unsigned char* AluResultNew,
-                                            int AluResultScalarNew,short RgNew)
+                            int AluResultScalarNew,short RgNew, bool selDataNew,
+                          bool selRegTypeNew, bool selWriteMemNew, int counter)
 {
   for (int i = 0; i < REGISTER_SIZE_IN_BYTES_WB; i++) {
     this->DoDataMem[i] = DoDataMemNew[i];
@@ -18,7 +19,20 @@ void Write_Back::run(unsigned char* DoDataMemNew,unsigned char* AluResultNew,
   }
   this->AluResultScalar = AluResultScalarNew;
   this->Rg = RgNew;
-  this->setVectorRegister(5,(unsigned char*)"VAMOOOOS");
+  this->selData = selDataNew;
+  this->selRegType = selRegTypeNew;
+  this->selWriteMem = selWriteMemNew;
+  if(this->selData && counter >= 4)
+  {
+    if(this->selRegType)
+    {
+      this->setVectorRegister(RgNew,(unsigned char*)"VAMOOOOS");
+    }
+    else
+    {
+      this->setScalarRegister(RgNew,77);
+    }
+  }
 }
 
 
@@ -41,8 +55,20 @@ void Write_Back::setVectorRegister(short din, unsigned char* vector)
 			vectorRegisters[din*REGISTER_SIZE_IN_BYTES_WB + i]  = vector[i];
 		}
 	}
-
 }
+
+void Write_Back::setScalarRegister(short direction, int data)
+{
+	if(direction > SCALAR_REGISTERS_MEM_SIZE_WB)
+	{
+		printf("Error solo existen %d registros escalaras, usted intento acceder al: %d",SCALAR_REGISTERS_MEM_SIZE_WB,direction);
+	}
+	else
+	{
+		scalarRegisters[direction] = data;
+	}
+}
+
 
 
 void Write_Back::printData()
@@ -53,6 +79,9 @@ void Write_Back::printData()
   printf("AluResult: %s\n",this->AluResult );
   printf("AluResultScalar: %d\n",this->AluResultScalar );
   printf("Rg: %d\n",this->Rg );
+  printf("selData: %d\n",this->selData);
+  printf("selRegType: %d\n",this->selRegType);
+  printf("selWriteMem: %d\n",this->selWriteMem);
   this->printVectorRegisters();
   this->printScalarRegisters();
 }

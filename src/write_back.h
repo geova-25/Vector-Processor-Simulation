@@ -15,9 +15,11 @@ class Write_Back
   public:
       Write_Back();
       void run(unsigned char* DoDataMemNew,unsigned char* AluResultNew,
-                                          int AluResultScalarNew,short RgNew);
+                          int AluResultScalarNew,short RgNew, bool selDataNew,
+                               bool selRegTypeNew,bool selWriteMemNew,int counter);
       void setRegisters(unsigned char* vectorRegistersNew,unsigned int* scalarRegistersNew);
       void setVectorRegister(short din, unsigned char* vector);
+      void setScalarRegister(short direction, int data);
       void printData();
   private:
       void printVectorRegisters();
@@ -28,4 +30,7 @@ class Write_Back
       int AluResultScalar;
       unsigned char* vectorRegisters;
       unsigned int*  scalarRegisters;
+      bool selData;
+      bool selRegType;
+      bool selWriteMem;
 };

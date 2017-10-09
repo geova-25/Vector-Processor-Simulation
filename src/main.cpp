@@ -75,8 +75,8 @@ void unitTest_fetch_reg_deco_reg_exe_reg_mem()
       decoder.run(fetch_decoder_register.OpDo, fetch_decoder_register.FDo, fetch_decoder_register.RvgDo, fetch_decoder_register.RvsDo, fetch_decoder_register.RvpDo, fetch_decoder_register.ImmNumDo);
       decoder_execute_register.run(decoder.DoVA,decoder.DoVB,decoder.DoSA,decoder.DoSB,decoder.OpDout,decoder.Imm,decoder.RgDecoOut);
       execute.run(decoder_execute_register.OpDout,decoder_execute_register.DoVA,decoder_execute_register.DoVB,decoder_execute_register.DoSA,decoder_execute_register.DoSB, decoder_execute_register.ImmOut, decoder_execute_register.RgOut);
-      register_exe_mem.run(execute.result,execute.DinMD,execute.resultScalar,execute.AddrA, execute.RgOutExe);
-      mem.run(register_exe_mem.DoDinMD,register_exe_mem.Doresult,register_exe_mem.DoAddrA,register_exe_mem.DoresultScalar,register_exe_mem.RgOut);
+      register_exe_mem.run(execute.result,execute.DinMD,execute.resultScalar,execute.AddrA, execute.RgOutExe, execute.selData, execute.selRegType, execute.selWriteMem);
+      mem.run(register_exe_mem.DoDinMD,register_exe_mem.Doresult,register_exe_mem.DoAddrA,register_exe_mem.DoresultScalar,register_exe_mem.RgOut, register_exe_mem.selDataOut,register_exe_mem.selRegTypeOut, register_exe_mem.selWriteMemOut, contador);
       usleep(1000000);
 
 
@@ -179,9 +179,9 @@ void unitTest_fetch_reg_deco_reg_exe_reg_mem_reg()
       decoder.run(fetch_decoder_register.OpDo, fetch_decoder_register.FDo, fetch_decoder_register.RvgDo, fetch_decoder_register.RvsDo, fetch_decoder_register.RvpDo, fetch_decoder_register.ImmNumDo);
       decoder_execute_register.run(decoder.DoVA,decoder.DoVB,decoder.DoSA,decoder.DoSB,decoder.OpDout,decoder.Imm,decoder.RgDecoOut);
       execute.run(decoder_execute_register.OpDout,decoder_execute_register.DoVA,decoder_execute_register.DoVB,decoder_execute_register.DoSA,decoder_execute_register.DoSB, decoder_execute_register.ImmOut, decoder_execute_register.RgOut);
-      register_exe_mem.run(execute.result,execute.DinMD,execute.resultScalar,execute.AddrA, execute.RgOutExe);
-      mem.run(register_exe_mem.DoDinMD,register_exe_mem.Doresult,register_exe_mem.DoAddrA,register_exe_mem.DoresultScalar,register_exe_mem.RgOut);
-      register_mem_wb.run(mem.Do,mem.Alu_result,mem.RgOutMemory/*AQUI VA RG*/,mem.AluResultScalar);
+      register_exe_mem.run(execute.result,execute.DinMD,execute.resultScalar,execute.AddrA, execute.RgOutExe, execute.selData, execute.selRegType, execute.selWriteMem);
+      mem.run(register_exe_mem.DoDinMD,register_exe_mem.Doresult,register_exe_mem.DoAddrA,register_exe_mem.DoresultScalar,register_exe_mem.RgOut, register_exe_mem.selDataOut,register_exe_mem.selRegTypeOut, register_exe_mem.selWriteMemOut, contador);
+      register_mem_wb.run(mem.Do,mem.Alu_result,mem.RgOutMemory/*AQUI VA RG*/,mem.AluResultScalar, mem.selData, mem.selRegType, mem.selWriteMem);
       usleep(1000000);
 
 
@@ -233,7 +233,7 @@ void unitTest_fetch_reg_deco_reg_exe_reg_mem_reg_wb()
 
     mem.insertValueInMem(2000,(unsigned char*)"FearOfTh");
     mem.insertValueInMem(108, (unsigned char*)"eDaaaark");
-    mem.insertValueInMem(0, (unsigned char*)"Yolooo");
+    mem.insertValueInMem(10, (unsigned char*)"Yolooo");
 
     unsigned char* vectorPrueba1 = (unsigned char*)calloc(8,sizeof(unsigned char));
     unsigned char* vectorPrueba2 = (unsigned char*)calloc(8,sizeof(unsigned char));
@@ -260,7 +260,7 @@ void unitTest_fetch_reg_deco_reg_exe_reg_mem_reg_wb()
     instructionMemory[0] = "00000010000101000000000000000000";
     //Sub Rv1 Rv3 Rv6
     //                       OP|F|Rg|Rs|Rp|
-    instructionMemory[1] = "00010000101111000000000000000000";
+    instructionMemory[1] = "01110000101111000000000000000000";
     //SumVS Rv2 Rv1 Rv2
     //                       OP|F|Rg|Rs|Rp|
     instructionMemory[2] = "00100001000101000000000000000000";
@@ -288,10 +288,10 @@ void unitTest_fetch_reg_deco_reg_exe_reg_mem_reg_wb()
       decoder.run(fetch_decoder_register.OpDo, fetch_decoder_register.FDo, fetch_decoder_register.RvgDo, fetch_decoder_register.RvsDo, fetch_decoder_register.RvpDo, fetch_decoder_register.ImmNumDo);
       decoder_execute_register.run(decoder.DoVA,decoder.DoVB,decoder.DoSA,decoder.DoSB,decoder.OpDout,decoder.Imm,decoder.RgDecoOut);
       execute.run(decoder_execute_register.OpDout,decoder_execute_register.DoVA,decoder_execute_register.DoVB,decoder_execute_register.DoSA,decoder_execute_register.DoSB, decoder_execute_register.ImmOut, decoder_execute_register.RgOut);
-      register_exe_mem.run(execute.result,execute.DinMD,execute.resultScalar,execute.AddrA, execute.RgOutExe);
-      mem.run(register_exe_mem.DoDinMD,register_exe_mem.Doresult,register_exe_mem.DoAddrA,register_exe_mem.DoresultScalar,register_exe_mem.RgOut);
-      register_mem_wb.run(mem.Do,mem.Alu_result,mem.RgOutMemory/*AQUI VA RG*/,mem.AluResultScalar);
-      write_back.run(register_mem_wb.DoDataMemoryOut,register_mem_wb.AluResultOut,register_mem_wb.AluResultScalarOut,register_mem_wb.RgOut);
+      register_exe_mem.run(execute.result,execute.DinMD,execute.resultScalar,execute.AddrA, execute.RgOutExe, execute.selData, execute.selRegType, execute.selWriteMem);
+      mem.run(register_exe_mem.DoDinMD,register_exe_mem.Doresult,register_exe_mem.DoAddrA,register_exe_mem.DoresultScalar,register_exe_mem.RgOut, register_exe_mem.selDataOut,register_exe_mem.selRegTypeOut, register_exe_mem.selWriteMemOut, contador);
+      register_mem_wb.run(mem.Do,mem.Alu_result,mem.RgOutMemory/*AQUI VA RG*/,mem.AluResultScalar, mem.selData, mem.selRegType, mem.selWriteMem);
+      write_back.run(register_mem_wb.DoDataMemoryOut,register_mem_wb.AluResultOut,register_mem_wb.AluResultScalarOut,register_mem_wb.RgOut,register_mem_wb.selDataOut,register_mem_wb.selRegTypeOut,register_mem_wb.selWriteMemOut ,contador);
       usleep(1000000);
 
 

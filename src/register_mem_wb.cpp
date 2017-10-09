@@ -9,7 +9,9 @@ Register_Mem_Wb::Register_Mem_Wb()
   AluResultIn     = (unsigned char*)calloc(REGISTER_SIZE_IN_BYTES_RMWB,sizeof(unsigned char));
 }
 
-void Register_Mem_Wb::run(unsigned char* DoDataMemNew, unsigned char* AluResultNew, short RgNew, int AluResultScalarNew)
+void Register_Mem_Wb::run(unsigned char* DoDataMemNew, unsigned char* AluResultNew,
+                        short RgNew, int AluResultScalarNew, bool selDataNew
+                                    ,bool selRegTypeNew, bool selWriteMemNew)
 {
   for (int i = 0; i < REGISTER_SIZE_IN_BYTES_RMWB; i++)
   {
@@ -18,6 +20,9 @@ void Register_Mem_Wb::run(unsigned char* DoDataMemNew, unsigned char* AluResultN
   }
     this->AluResultScalarIn = AluResultScalarNew;
     this->RgIn = RgNew;
+    this->selDataIn = selDataNew;
+    this->selRegTypeIn = selRegTypeNew;
+    this->selWriteMemIn = selWriteMemNew;
 }
 
 
@@ -29,16 +34,22 @@ void Register_Mem_Wb::changeOutPutRegisters()
   }
   this->RgOut = this->RgIn;
   this->AluResultScalarOut = this->AluResultScalarIn;
+  this->selDataOut = this->selDataIn;
+  this->selRegTypeOut = this->selRegTypeIn;
+  this->selWriteMemOut = this->selWriteMemIn;
 }
 
 void Register_Mem_Wb::printDin()
 {
 	cout << "-----------Input Data Mem_WB_Register------------------------\n";
   	printf("------------------------------------------------------------\n");
-	cout << "DoDataMemorIn: "    << this->DoDataMemorIn   << '\n';
-	cout << "AluResultIn: "      << this->AluResultIn     << '\n';
-	cout << "RgIn: "             << this->RgIn            << '\n';
-  cout << "AluResultScalarIn: "  << this->AluResultScalarIn  << '\n';
+	cout << "DoDataMemorIn: "     << this->DoDataMemorIn     << '\n';
+	cout << "AluResultIn: "       << this->AluResultIn       << '\n';
+	cout << "RgIn: "              << this->RgIn              << '\n';
+  cout << "AluResultScalarIn: " << this->AluResultScalarIn << '\n';
+  cout << "selDataIn: "         << this->selDataIn         << '\n';
+  cout << "selRegTypeIn: "      << this->selRegTypeIn      << '\n';
+  cout << "selWriteMemIn: "     << this->selWriteMemIn     << '\n';
 }
 
 void Register_Mem_Wb::printDout()
@@ -49,4 +60,7 @@ void Register_Mem_Wb::printDout()
 	cout << "AluResultOut: "        << this->AluResultOut        << '\n';
 	cout << "RgOut: "               << this->RgOut               << '\n';
   cout << "AluResultScalarOut: "  << this->AluResultScalarOut  << '\n';
+  cout << "selDataOut: "          << this->selDataOut          << '\n';
+  cout << "selRegTypeOut: "       << this->selRegTypeOut       << '\n';
+  cout << "selWriteMemOut: "      << this->selWriteMemOut      << '\n';
 }

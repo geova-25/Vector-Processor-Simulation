@@ -29,8 +29,12 @@ class Execute
 		unsigned char* shfr(unsigned char* vector1, unsigned char data2);
 		unsigned char* shflc(unsigned char* vector1, unsigned char data2);
 		unsigned char* shfrc(unsigned char* vector1, unsigned char data2);
+		void controlLogic(int OpCode);
 		void printDout();
 		short RgOutExe;
+		bool selData;
+		bool selRegType;
+		bool selWriteMem;
 	private:
 		Alu alu0;
 		Alu alu1;

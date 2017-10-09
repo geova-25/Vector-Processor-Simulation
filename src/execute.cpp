@@ -25,6 +25,11 @@ void Execute::run(short OpCode, unsigned char * DoVA, unsigned char * DoVB, int 
 	DinMD = DoVB;
 	AddrA = DoSA;
 	this->RgOutExe = RgNew;
+
+
+	this->controlLogic(OpCode);
+
+
 	switch(OpCode)
 	{
 		case 0:
@@ -79,6 +84,30 @@ void Execute::run(short OpCode, unsigned char * DoVA, unsigned char * DoVB, int 
 			printf("Not using Alus");
 	}
 
+}
+
+void Execute::controlLogic(int OpCode)
+{
+	if((OpCode == 7) || (OpCode == 8))
+	{
+		this->selData = false;
+		this->selWriteMem = true;
+	}
+	else
+	{
+		this->selWriteMem = false;
+		this->selData = true;
+	}
+
+	if((OpCode == 5) || (OpCode == 6) || (OpCode == 10) || (OpCode == 11))
+	{
+		//0 is Scalar
+			this->selRegType = false;
+	}
+	else
+	{ //1 is Vecctor
+		this->selRegType = true;
+	}
 }
 
 unsigned char* Execute::sumVS(unsigned char* vector1, unsigned char data2){
@@ -141,7 +170,8 @@ int Execute::subS(int dato1, int dato2){
 
 void Execute::printDout()
 {
-
+	printf("-----------Execute Data--------------------------------------\n");
+  printf("-------------------------------------------------------------\n");
 	printf("\n");
 	printf("Result: %s\n",this->result);
 	printf("exe.result[0]: %d\n",this->result[0]);
@@ -164,6 +194,10 @@ void Execute::printDout()
 	printf("DinMD[7]: %d\n",this->DinMD[7]);
 	printf("Addr: %d\n",this->AddrA);
 	printf("RgOutExe: %d\n",this->RgOutExe);
+	printf("selData: %d\n",this->selData);
+	printf("selRegType: %d\n",this->selRegType);
+	printf("selWriteMem: %d\n",this->selWriteMem);
+
 }
 
 unsigned char* Execute::xxor(unsigned char* vector1, unsigned char data2){

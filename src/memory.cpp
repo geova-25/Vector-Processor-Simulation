@@ -17,17 +17,23 @@ unsigned char* Memory::getValueFromMem(int dir)
 	return Do;
 }
 
-void Memory::run(unsigned char* dinMemNew,unsigned char* Alu_ResultNew, int dir, int AluResultScalar, short RgNew)
+void Memory::run(unsigned char* dinMemNew,unsigned char* Alu_ResultNew, int dir,
+	 													int AluResultScalar, short RgNew, bool selDataNew,
+															bool selRegTypeNew, bool selWriteMemNew, int contador)
 {
-	for (int i = 0; i < SIZE_OF_DATA_IN_BYTES_M; i++)
-	{
-		Alu_result[i] = Alu_ResultNew[i];
-		Do[i] = memory[dir + i];
-		DinMem[i] = dinMemNew[i];
-	}
+	if(this->selWriteMem && contador >= 3)
+		for (int i = 0; i < SIZE_OF_DATA_IN_BYTES_M; i++)
+		{
+			Alu_result[i] = Alu_ResultNew[i];
+			Do[i] = memory[dir + i];
+			DinMem[i] = dinMemNew[i];
+		}
 	this->RgOutMemory = RgNew;
 	AluResultScalar = AluResultScalar;
 	Addr = dir;
+	this->selData = selDataNew;
+	this->selRegType = selRegTypeNew;
+	this->selWriteMem = selWriteMemNew;
 }
 
 void Memory::printData()
@@ -40,6 +46,10 @@ void Memory::printData()
 	printf("DinMem: %s\n", this->DinMem);
 	printf("Dir: %d\n",this->Addr);
 	printf("RgOutMemory: %d\n",this->RgOutMemory);
+	printf("selData: %d\n",this->selData);
+	printf("selRegType: %d\n",this->selRegType);
+	printf("selWriteMem: %d\n",this->selWriteMem);
+	this->printMemory(this->Addr);
 
 }
 
@@ -49,4 +59,14 @@ void Memory::insertValueInMem(int dir,unsigned char* data)
 	{
 		memory[dir + i] = data[i];
 	}
+}
+
+void Memory::printMemory(int dir)
+{
+	//unsigned char* newMemVector =  (unsigned char*)malloc(sizeof(unsigned char)*8);
+	printf("Valor de memoria en la posicion:%d ",dir);
+	for (int i = 0; i < 8; i++) {
+	 	printf("%c",memory[dir + i]);
+	}
+	printf("\n");
 }
