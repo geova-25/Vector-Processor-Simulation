@@ -533,6 +533,26 @@ void unitTest_fetch_reg_deco_reg_exe()
 
 }
 
+
+void unitTest_Mem()
+{
+  Memory mem;
+
+  unsigned char* vectorPrueba1 = (unsigned char*)calloc(8,sizeof(unsigned char));
+  unsigned char* vectorPrueba2 = (unsigned char*)calloc(8,sizeof(unsigned char));
+  unsigned char* vectorPrueba3 = (unsigned char*)calloc(8,sizeof(unsigned char));
+  unsigned char* vectorPrueba4 = (unsigned char*)calloc(8,sizeof(unsigned char));
+  vectorPrueba1 = (unsigned char*)"DrStein";
+  vectorPrueba2 = (unsigned char*)"Hallowee";
+  vectorPrueba3 = (unsigned char*)"IWantOut";
+  vectorPrueba4 = (unsigned char*)"KeeperSe";
+
+  mem.insertValueInMem(40,vectorPrueba3);
+  mem.insertValueInMem(48,vectorPrueba4);
+  mem.run(vectorPrueba1,vectorPrueba2,48);
+  mem.printData();
+}
+
 void unitTest_fetch_reg_deco_reg_exe_reg()
 {
 
@@ -635,7 +655,8 @@ int main(){
   //unitTest_fetch_reg_deco_reg();
   //unitTest_Register_Exe_Mem();
   //unitTest_fetch_reg_deco_reg_exe();
-  unitTest_fetch_reg_deco_reg_exe_reg();
+  unitTest_Mem();
+  //unitTest_fetch_reg_deco_reg_exe_reg();
 
   /*
   string str[100];
