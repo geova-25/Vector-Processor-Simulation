@@ -10,7 +10,7 @@ Register_Mem_Wb::Register_Mem_Wb()
 }
 
 void Register_Mem_Wb::run(unsigned char* DoDataMemNew, unsigned char* AluResultNew,
-                        short RgNew, int AluResultScalarNew, bool selDataNew
+                        short RgNew, int AluResultScalarNew, int selDataNew
                                     ,bool selRegTypeNew, bool selWriteMemNew)
 {
   for (int i = 0; i < REGISTER_SIZE_IN_BYTES_RMWB; i++)

@@ -19,6 +19,7 @@ class Decoder
 		void setVectorRegister(short din, unsigned char* vector);
 		void printVectorRegistersByBytes();
 		void printVectorRegisters();
+		void printVectorRegistersString();
 		//-------Scalar
 		void setScalarRegister(short din, int data);
 		unsigned int getScalarRegister(short direction);

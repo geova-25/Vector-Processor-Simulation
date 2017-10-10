@@ -13,7 +13,7 @@ class Register_Mem_Wb
   public:
     Register_Mem_Wb();
     void run(unsigned char* DoDataMemNew, unsigned char* AluResultNew,
-                      short RgNew,int AluResulScalarNew, bool selDataNew
+                      short RgNew,int AluResulScalarNew, int selDataNew
                                 ,bool selRegTypeNew, bool selWriteMemNew);
     void changeOutPutRegisters();
     void printDin();
@@ -22,12 +22,12 @@ class Register_Mem_Wb
     unsigned char* DoDataMemoryOut;
     unsigned char* AluResultOut;
     short RgOut;
-    bool selDataOut;
+    int selDataOut;
     bool selRegTypeOut;
     bool selWriteMemOut;
   private:
     bool selRegTypeIn;
-    bool selDataIn;
+    int selDataIn;
     int AluResultScalarIn;
     unsigned char* DoDataMemorIn;
     unsigned char* AluResultIn;

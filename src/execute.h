@@ -32,9 +32,10 @@ class Execute
 		void controlLogic(int OpCode);
 		void printDout();
 		short RgOutExe;
-		bool selData;
+		int selData;
 		bool selRegType;
 		bool selWriteMem;
+		unsigned char OpDoSA;
 	private:
 		Alu alu0;
 		Alu alu1;

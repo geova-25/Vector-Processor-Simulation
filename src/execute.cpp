@@ -25,8 +25,8 @@ void Execute::run(short OpCode, unsigned char * DoVA, unsigned char * DoVB, int 
 	DinMD = DoVB;
 	AddrA = DoSA;
 	this->RgOutExe = RgNew;
-
-
+	this->Imm = ImmNew;
+	this->OpDoSA = DoSA;
 	this->controlLogic(OpCode);
 
 
@@ -60,6 +60,14 @@ void Execute::run(short OpCode, unsigned char * DoVA, unsigned char * DoVB, int 
 			printf("Substracting scalars\n");
 			this->subS(DoSA,DoSB);
 			break;
+		case 7:
+			printf("Storing vector scalars\n");
+			this->result = DoVB;
+			break;
+		case 9:
+			printf("Loading vector \n");
+			this->result = DoVB;
+			break;
 		case 11:
 			printf("Moving scalar\n");
 			this->sumS(0,ImmNew);
@@ -88,15 +96,24 @@ void Execute::run(short OpCode, unsigned char * DoVA, unsigned char * DoVB, int 
 
 void Execute::controlLogic(int OpCode)
 {
-	if((OpCode == 7) || (OpCode == 8))
+	if (OpCode == -1){
+		 	this->selData = 0;
+			this->selWriteMem = false;
+	}//Los Store
+	else if((OpCode == 7) || (OpCode == 8))
 	{
-		this->selData = false;
+		this->selData = 1;
 		this->selWriteMem = true;
+	}//Los Loads
+	else if((OpCode == 9) | (OpCode == 10))
+	{
+		this->selData = 2;
+		this->selWriteMem = false;
 	}
 	else
-	{
+	{//Todos los demas
+		this->selData = 1;
 		this->selWriteMem = false;
-		this->selData = true;
 	}
 
 	if((OpCode == 5) || (OpCode == 6) || (OpCode == 10) || (OpCode == 11))
@@ -192,11 +209,13 @@ void Execute::printDout()
 	printf("DinMD[5]: %d\n",this->DinMD[5]);
 	printf("DinMD[6]: %d\n",this->DinMD[6]);
 	printf("DinMD[7]: %d\n",this->DinMD[7]);
+	printf("OpDoSA: %d\n",this->OpDoSA);
 	printf("Addr: %d\n",this->AddrA);
 	printf("RgOutExe: %d\n",this->RgOutExe);
 	printf("selData: %d\n",this->selData);
 	printf("selRegType: %d\n",this->selRegType);
 	printf("selWriteMem: %d\n",this->selWriteMem);
+	printf("Imm: %d\n",this->Imm);
 
 }
 

@@ -41,6 +41,7 @@ void Decoder_Execute_Register::printDin()
 	cout << "DiSB: "  << this->DiSB  << '\n';
 	cout << "OpDin: " << this->OpDin << '\n';
 	cout << "RgIn: "  << this->RgIn  << '\n';
+	cout << "ImmIn: " << this->ImmIn << '\n';
 }
 
 void Decoder_Execute_Register::printDout()
@@ -53,4 +54,5 @@ void Decoder_Execute_Register::printDout()
 	cout << "DoSB: "   << this->DoSB   << '\n';
 	cout << "OpDout: " << this->OpDout << '\n';
 	cout << "RgOut: "  << this->RgOut  << '\n';
+	cout << "ImmOut: " << this->ImmOut << '\n';
 }

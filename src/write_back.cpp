@@ -10,7 +10,7 @@ Write_Back::Write_Back()
 }
 
 void Write_Back::run(unsigned char* DoDataMemNew,unsigned char* AluResultNew,
-                            int AluResultScalarNew,short RgNew, bool selDataNew,
+                            int AluResultScalarNew,short RgNew, int selDataNew,
                           bool selRegTypeNew, bool selWriteMemNew, int counter)
 {
   for (int i = 0; i < REGISTER_SIZE_IN_BYTES_WB; i++) {
@@ -22,15 +22,22 @@ void Write_Back::run(unsigned char* DoDataMemNew,unsigned char* AluResultNew,
   this->selData = selDataNew;
   this->selRegType = selRegTypeNew;
   this->selWriteMem = selWriteMemNew;
-  if(this->selData && counter >= 4)
+  if((this->selData != 0) && counter >= 4)
   {
     if(this->selRegType)
-    {
-      this->setVectorRegister(RgNew,(unsigned char*)"VAMOOOOS");
+    {//Sel Data = 1 Escribe el resultado de la ALu
+      if((this->selData == 1) && counter >= 4)
+      {
+          this->setVectorRegister(RgNew,this->AluResult);
+      }
+      else
+      {//Sel Data = 2 Escribe el resultado de la Memoria (Load)
+        this->setVectorRegister(RgNew,this->DoDataMem);
+      }
     }
     else
     {
-      this->setScalarRegister(RgNew,77);
+      this->setScalarRegister(RgNew,this->AluResultScalar);
     }
   }
 }
@@ -82,24 +89,46 @@ void Write_Back::printData()
   printf("selData: %d\n",this->selData);
   printf("selRegType: %d\n",this->selRegType);
   printf("selWriteMem: %d\n",this->selWriteMem);
+  this->printVectorRegistersString();
   this->printVectorRegisters();
   this->printScalarRegisters();
 }
 
-void Write_Back::printVectorRegisters()
+
+void Write_Back::printVectorRegistersString()
 {
-	printf("--------------WriteBack Vector Registers Values-----\n");
-	printf("----------------------------------------------------\n");
+	printf("--------------Registers Values Strings------------\n");
+	printf("--------------------------------------------------\n");
 	for (int i = 0; i < REGISTER_SIZE_IN_BYTES_WB; ++i)
 	{
 		printf("Vector[%d]: ",i);
 		for (int j = 0; j < REGISTER_SIZE_IN_BYTES_WB; ++j)
 		{
-			printf("%c",this->vectorRegisters[i*REGISTER_SIZE_IN_BYTES_WB + j]);
+			printf("%c",vectorRegisters[i*REGISTER_SIZE_IN_BYTES_WB + j]);
 		}
 		printf("\n");
 	}
 }
+
+void Write_Back::printVectorRegisters()
+{
+  printf("--------------Registers Values--------------------\n");
+	printf("--------------------------------------------------\n");
+	  printf("           |  0  |  1  |  2  |  3  |  4  |  5  |  6  |  7  |\n");
+		printf("           -------------------------------------------------\n");
+	for (int i = 0; i < REGISTER_SIZE_IN_BYTES_WB; ++i)
+	{
+		printf("Vector[%d]: | ",i);
+		for (int j = 0; j < REGISTER_SIZE_IN_BYTES_WB; ++j)
+		{
+			printf("%-3d | ",vectorRegisters[i*REGISTER_SIZE_IN_BYTES_WB + j]);
+		}
+		printf("\n");
+	}
+}
+
+
+
 
 void Write_Back::printScalarRegisters()
 {

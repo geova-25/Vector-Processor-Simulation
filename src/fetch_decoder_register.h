@@ -11,6 +11,7 @@ using namespace std;
 #define RVG_SIZE 3
 #define RVP_SIZE 3
 #define RVS_SIZE 3
+#define IMM_SIZE_BITS 19
 
 class Fetch_Decoder_Register
 {
@@ -28,7 +29,7 @@ class Fetch_Decoder_Register
     void printDin();
 
 	private:
-		//----------Fetch-Decoder Registers 
+		//----------Fetch-Decoder Registers
 		short OpDin;
   	short FDin;
  		short RvgDin;

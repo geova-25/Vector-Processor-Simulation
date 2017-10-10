@@ -44,13 +44,13 @@ void Fetch_Decoder_Register::printDin()
   printf("RvsDin: %d\n",RvsDin);
   printf("RvpDin: %d\n",RvpDin);
   printf("ImmNumDin:  %d\n",ImmNumDin);
-  
+
 }
 
 void Fetch_Decoder_Register::saveRegister(string DoInstrutionMemory)
 {
 
-  unsigned char ImmC[9];
+  unsigned char ImmC[IMM_SIZE_BITS + 1];
   unsigned char OpC[OP_SIZE + 1];
   unsigned char FC[F_SIZE + 1];
   unsigned char RvgC[RVG_SIZE + 1];
@@ -89,7 +89,7 @@ void Fetch_Decoder_Register::saveRegister(string DoInstrutionMemory)
   RvpC[0] = DoInstrutionMemory[12];
   RvpC[1] = DoInstrutionMemory[13];
   RvpC[2] = DoInstrutionMemory[14];
- 
+
 
   //------Immediate
   ImmC[0] = DoInstrutionMemory[12];
@@ -100,7 +100,18 @@ void Fetch_Decoder_Register::saveRegister(string DoInstrutionMemory)
   ImmC[5] = DoInstrutionMemory[17];
   ImmC[6] = DoInstrutionMemory[18];
   ImmC[7] = DoInstrutionMemory[19];
-  
+	ImmC[8] = DoInstrutionMemory[20];
+	ImmC[9] = DoInstrutionMemory[21];
+	ImmC[10] = DoInstrutionMemory[22];
+	ImmC[11] = DoInstrutionMemory[23];
+	ImmC[12] = DoInstrutionMemory[24];
+	ImmC[13] = DoInstrutionMemory[25];
+	ImmC[14] = DoInstrutionMemory[26];
+	ImmC[15] = DoInstrutionMemory[27];
+	ImmC[16] = DoInstrutionMemory[28];
+	ImmC[17] = DoInstrutionMemory[29];
+	ImmC[18] = DoInstrutionMemory[30];
+	ImmC[19] = DoInstrutionMemory[31];
 
   //----End of char[]
 
@@ -108,7 +119,7 @@ void Fetch_Decoder_Register::saveRegister(string DoInstrutionMemory)
   RvgC[RVG_SIZE] = '\0';
   RvpC[RVP_SIZE] = '\0';
   RvsC[RVS_SIZE] = '\0';
-  ImmC[8] = '\0';
+  ImmC[IMM_SIZE_BITS + 1 ] = '\0';
 
   //Char[] to string
 
@@ -121,15 +132,23 @@ void Fetch_Decoder_Register::saveRegister(string DoInstrutionMemory)
 
 
   //String to number
-  
-  ImmNumDin = stoi(ImmStr,nullptr,2);
-  OpDin = stoi(OpStr,nullptr,2);
-  FDin = stoi(FStr,nullptr,2);
-  RvgDin = stoi(RvgStr,nullptr,2);
-  RvpDin = stoi(RvpStr,nullptr,2);
-  RvsDin = stoi(RvsStr,nullptr,2);
 
-
-
-
+	try
+	{
+  	ImmNumDin = stoi(ImmStr,nullptr,2);
+  	OpDin = stoi(OpStr,nullptr,2);
+  	FDin = stoi(FStr,nullptr,2);
+  	RvgDin = stoi(RvgStr,nullptr,2);
+  	RvpDin = stoi(RvpStr,nullptr,2);
+  	RvsDin = stoi(RvsStr,nullptr,2);
+	}
+	catch(...)
+	{
+		ImmNumDin = 0;
+  	OpDin = -1;
+  	FDin = 0;
+  	RvgDin = 0;
+  	RvpDin = 0;
+ 		RvsDin = 0;
+	}
 }

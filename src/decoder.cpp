@@ -39,6 +39,7 @@ void Decoder::printDout()
 	cout << "DoSB: "      << this->DoSB			 << "\n";
 	cout << "RgDecoOut: " << this->RgDecoOut << "\n";
 	cout << "OpDout: "    << this->OpDout 	 << "\n";
+	cout << "Imm: "       << this->Imm    	 << "\n";
 }
 
 //-------------------------------------------------Vector
@@ -78,13 +79,12 @@ void Decoder::printVectorRegistersByBytes()
 	{
 		for (int j = 0; j < REGISTER_SIZE_IN_BYTES; ++j)
 		{
-			printf("Vector %d[%d]: %c\n",i,j,vectorRegisters[i*REGISTER_SIZE_IN_BYTES + j]);
+			printf("Vector %d[%d]: %d\n",i,j,vectorRegisters[i*REGISTER_SIZE_IN_BYTES + j]);
 		}
 	}
 }
 
-
-void Decoder::printVectorRegisters()
+void Decoder::printVectorRegistersString()
 {
 	printf("--------------Registers Values--------------------------------\n");
 	printf("--------------------------------------------------------------\n");
@@ -94,6 +94,23 @@ void Decoder::printVectorRegisters()
 		for (int j = 0; j < REGISTER_SIZE_IN_BYTES; ++j)
 		{
 			printf("%c",vectorRegisters[i*REGISTER_SIZE_IN_BYTES + j]);
+		}
+		printf("\n");
+	}
+}
+
+void Decoder::printVectorRegisters()
+{
+	printf("--------------Registers Values--------------------------------\n");
+	printf("--------------------------------------------------------------\n");
+	  printf("           |  0  |  1  |  2  |  3  |  4  |  5  |  6  |  7  |\n");
+		printf("           -------------------------------------------------\n");
+	for (int i = 0; i < REGISTER_SIZE_IN_BYTES; ++i)
+	{
+		printf("Vector[%d]: | ",i);
+		for (int j = 0; j < REGISTER_SIZE_IN_BYTES; ++j)
+		{
+			printf("%-3d | ",vectorRegisters[i*REGISTER_SIZE_IN_BYTES + j]);
 		}
 		printf("\n");
 	}

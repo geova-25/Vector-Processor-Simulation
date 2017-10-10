@@ -8,6 +8,26 @@
 using namespace std;
 
 
+void unitTest_Mem()
+{
+  Memory mem;
+
+  unsigned char* vectorPrueba1 = (unsigned char*)calloc(8,sizeof(unsigned char));
+  unsigned char* vectorPrueba2 = (unsigned char*)calloc(8,sizeof(unsigned char));
+  unsigned char* vectorPrueba3 = (unsigned char*)calloc(8,sizeof(unsigned char));
+  unsigned char* vectorPrueba4 = (unsigned char*)calloc(8,sizeof(unsigned char));
+  vectorPrueba1 = (unsigned char*)"RunAway\0";
+  vectorPrueba2 = (unsigned char*)"Hallowe\0";
+  vectorPrueba3 = (unsigned char*)"IWantOu\0";
+  vectorPrueba4 = (unsigned char*)"KeeperS\0";
+
+  mem.insertValueInMem(40,vectorPrueba3);
+  mem.insertValueInMem(48,vectorPrueba4);
+  mem.run(vectorPrueba1,vectorPrueba2,8,50,8,1,1,1,2);
+  mem.printData(0);
+}
+
+
 void unitTest_fetch_reg_deco_reg_exe_reg_mem()
 {
     Fetch fetch;
@@ -91,7 +111,7 @@ void unitTest_fetch_reg_deco_reg_exe_reg_mem()
       execute.printDout();
       register_exe_mem.printDin();
       register_exe_mem.printDout();
-      mem.printData();
+      mem.printData(0);
       //-----------------Change Registers
       fetch_decoder_register.changeOutPutRegisters();
       decoder_execute_register.changeOutPutRegisters();
@@ -196,7 +216,7 @@ void unitTest_fetch_reg_deco_reg_exe_reg_mem_reg()
       execute.printDout();
       register_exe_mem.printDin();
       register_exe_mem.printDout();
-      mem.printData();
+      mem.printData(0);
       register_mem_wb.printDin();
       register_mem_wb.printDout();
       //-----------------Change Registers
@@ -231,51 +251,71 @@ void unitTest_fetch_reg_deco_reg_exe_reg_mem_reg_wb()
     write_back.setRegisters(VectorRegisters,ScalarRegisters);
 
 
-    mem.insertValueInMem(2000,(unsigned char*)"FearOfTh");
-    mem.insertValueInMem(108, (unsigned char*)"eDaaaark");
-    mem.insertValueInMem(10, (unsigned char*)"Yolooo");
+    mem.insertValueInMem(200,(unsigned char*)"FearOfT\0");
+    mem.insertValueInMem(112, (unsigned char*)"eDaaaar\0");
+    mem.insertValueInMem(8, (unsigned char*)  "Yolooox\0");
 
     unsigned char* vectorPrueba1 = (unsigned char*)calloc(8,sizeof(unsigned char));
     unsigned char* vectorPrueba2 = (unsigned char*)calloc(8,sizeof(unsigned char));
     unsigned char* vectorPrueba3 = (unsigned char*)calloc(8,sizeof(unsigned char));
     unsigned char* vectorPrueba4 = (unsigned char*)calloc(8,sizeof(unsigned char));
-    vectorPrueba1 = (unsigned char*)"DrStein";
-    vectorPrueba2 = (unsigned char*)"Hallowee";
-    vectorPrueba3 = (unsigned char*)"IWantOut";
-    vectorPrueba4 = (unsigned char*)"KeeperSe";
+/*
+    vectorPrueba1 = (unsigned char*)"DrStein\0";
+    vectorPrueba2 = (unsigned char*)"Keraskk\0";
+    vectorPrueba3 = (unsigned char*)"MonicaG\0";
+    vectorPrueba4 = (unsigned char*)"RapidGu\0";
+*/
+  for (int i = 0; i < 8; i++)
+  {
+    vectorPrueba1[i] = rand();
+    vectorPrueba2[i] = rand();
+    vectorPrueba3[i] = rand();
+    vectorPrueba4[i] = rand();
+  }
+
     decoder.setVectorRegister(0,vectorPrueba1);
     decoder.setVectorRegister(1,vectorPrueba2);
     decoder.setVectorRegister(2,vectorPrueba3);
     decoder.setVectorRegister(3,vectorPrueba4);
-    decoder.setScalarRegister(0,2000);
-    decoder.setScalarRegister(1,'l');
-    decoder.setScalarRegister(2,'a');
+    decoder.setScalarRegister(0,0);
+    decoder.setScalarRegister(1,8);
+    decoder.setScalarRegister(2,112);
+    decoder.setScalarRegister(3,250);
+    decoder.setScalarRegister(5,464);
 
 
     int contador = 0;
     string* instructionMemory = new string[INST_MEM_SIZE];
     instructionMemory = fetch.getInstructionMemory();
-    //SumV Rv4 Rv1 Rv2
+
+    //Aplica un SumS de R3 con R2
+    //Sums R7 R1 R5
     //                       OP|F|Rg|Rs|Rp|
-    instructionMemory[0] = "00000010000101000000000000000000";
-    //Sub Rv1 Rv3 Rv6
+    instructionMemory[0] = "01010011100110100000000000000000";
+
+
+/*
     //                       OP|F|Rg|Rs|Rp|
-    instructionMemory[1] = "01110000101111000000000000000000";
-    //SumVS Rv2 Rv1 Rv2
+    instructionMemory[1] = "00110001100110100000000000000000";
+
     //                       OP|F|Rg|Rs|Rp|
-    instructionMemory[2] = "00100001000101000000000000000000";
-    //SubVS Rv3 Rv1 Rv5
+    instructionMemory[2] = "0011_0001100110100000000000000000";
+
     //                       OP|F|Rg|Rs|Rp|
-    instructionMemory[3] = "00110001100110100000000000000000";
-    instructionMemory[4] = "00110000100110100000000000000000";
+    instructionMemory[4] = "0011_0001100110100000000000000000";
     instructionMemory[5] = "00110000100110100000000000000000";
 
-
-    while(contador <= 60)
+    instructionMemory[6] = "00110000100110100000000000000000";
+*/
+    mem.printData(1);
+    while(contador <= 20)
     {
 
       printf("\n");
-      printf("+++++++++++++++++++++++++New Iteration %d++++++++++++++++++++++++++++++++\n",contador);
+      printf("\033[22;34m+++++++++++++++++++++++++New Iteration %d++++++++++++++++++++++++++++++++\033[0m \n",contador);
+      printf("+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++\n");
+      printf("+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++\n");
+      printf("+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++\n");
       printf("+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++\n");
       printf("\n");
       //printf("--------------------------------------------------------------\n");
@@ -306,10 +346,11 @@ void unitTest_fetch_reg_deco_reg_exe_reg_mem_reg_wb()
       execute.printDout();
       register_exe_mem.printDin();
       register_exe_mem.printDout();
-      mem.printData();
+      mem.printData(1);
       register_mem_wb.printDin();
       register_mem_wb.printDout();
       write_back.printData();
+
       //-----------------Change Registers
       fetch_decoder_register.changeOutPutRegisters();
       decoder_execute_register.changeOutPutRegisters();
@@ -317,6 +358,12 @@ void unitTest_fetch_reg_deco_reg_exe_reg_mem_reg_wb()
       register_mem_wb.changeOutPutRegisters();
       //-----------------Others
       contador = contador + 1;
+
+      //for (int i = 0; i < 32; i=i+8) {
+        //printf("%s\n",mem.getValueFromMem(i));
+        //if(i%8 == 0) printf("\n");
+        //else //printf("%c\n", mem.memory[i]);
+      //}
     }
 }
 

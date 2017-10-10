@@ -10,7 +10,7 @@ Register_Exe_Mem::Register_Exe_Mem()
 }
 
 void Register_Exe_Mem::run(unsigned char* DoresultNew, unsigned char* DoDinMDNew,
-        int DoresultScalarNew, int DoAddrANew, short RgNew, bool selDataNew,
+        int DoresultScalarNew, int DoAddrANew, short RgNew, int selDataNew,
                                     bool selRegTypeNew, bool selWriteMemNew)
 {
   for (int i = 0; i < REGISTER_SIZE_IN_BYTES_EMR; i++) {
