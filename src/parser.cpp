@@ -1,6 +1,6 @@
 #include "parser.h"
 
-Parser::Parser()
+Parser::Parser(string nameOfFile)
 {
   this->quantity_of_duplications = 6554;
   this->quantity_of_structions = 33;
@@ -9,7 +9,32 @@ Parser::Parser()
   this->instructions = new string[this->quantity_of_structions * this->quantity_of_duplications];
 
   //ifstream infile("SUMASIMPLE.txt");
-  ifstream infile("DESENCRIPTACIONSUMASIMPLE.txt");
+  ifstream infile(nameOfFile);
+  //ifstream infile("SHFCLF5.txt");
+  //ifstream infile("SHFCRG5.txt");
+  //ifstream infile("SHFLF1.txt");
+  //ifstream infile("SHFRG1.txt");
+  //ifstream infile("XOR.txt");
+  string a;
+  int counter = 0;
+  while (infile >> a)
+  {
+    instructions[counter] = a;
+    std::cout << counter << ": " << a << '\n';
+    counter++;
+  }
+}
+
+Parser::Parser()
+{
+  this->quantity_of_duplications = 6554;
+  this->quantity_of_structions = 33;
+  this->initInstructionsReplication = 9;
+  this->totalInstructionsNumber = this->quantity_of_structions * this->quantity_of_duplications;
+  this->instructions = new string[this->quantity_of_structions * this->quantity_of_duplications];
+
+  ifstream infile("SUMASIMPLE.txt");
+  //ifstream infile(nameOfFile);
   //ifstream infile("SHFCLF5.txt");
   //ifstream infile("SHFCRG5.txt");
   //ifstream infile("SHFLF1.txt");
@@ -76,7 +101,7 @@ void Parser::duplicate(string* binaryNoDuplicatedInstructions, int times)
     }
   }
 
-  ofstream out("DuplicatedCode.txt");
+  ofstream out("./Duplicated_Code/DuplicatedCode.txt");
   for (int i = 0; i < totalInstructionsNumber; i++) {
     out << instructions[i];
     out << "\n";

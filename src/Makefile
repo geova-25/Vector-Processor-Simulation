@@ -1,7 +1,13 @@
-all: main3
+all: mainProcessor
 
 testFetch:
 				g++ -o fetch fetch.cpp
+
+mainProcessor:
+				g++ -Wall -std=c++17 -o main  mainProcessor.cpp vectorProcessor.cpp fetch.cpp decoder.cpp \
+				execute.cpp alu.cpp fetch_decoder_register.cpp decoder_execute_register.cpp  \
+				register_exe_mem.cpp memory.cpp register_mem_wb.cpp write_back.cpp parser.cpp \
+				imageManager.cpp
 
 main3:
 				g++ -Wall -std=c++17 -o main  main.cpp vectorProcessor.cpp fetch.cpp decoder.cpp \

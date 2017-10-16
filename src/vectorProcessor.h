@@ -19,16 +19,21 @@ class VectorProcessor
 {
 	public:
 		VectorProcessor();
-		void setInstructionMemory(string* instructionMemory);
-		void setDataMemory(unsigned char* dataMemory);
 		void refreshRegisters();
-		void run();
+		void run(int totalInstructionsNumber);
+		void setInstructionMemory(string* instructionMemory);
+		void setDataMemory(unsigned char* dataMemory, int imageSize);
+		unsigned char* getDataMemory();
 
 	private:
-		Fetch_Decoder_Register fetch_decoder_register;
 		Fetch fetch;
-		Decoder deco;
-
-
-
+	  Fetch_Decoder_Register fetch_decoder_register;
+	  Decoder decoder;
+	  Decoder_Execute_Register decoder_execute_register;
+	  Execute execute;
+	  Register_Exe_Mem register_exe_mem;
+	  Memory mem;
+	  Register_Mem_Wb register_mem_wb;
+	  Write_Back write_back;
+		void printValues();
 };

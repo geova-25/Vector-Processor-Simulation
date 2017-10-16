@@ -8,6 +8,7 @@ using namespace std;
 class Parser
 {
   public:
+    Parser(string nameOfFile);
     Parser();
     string* instructions;
     void parse();

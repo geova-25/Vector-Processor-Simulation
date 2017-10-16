@@ -670,6 +670,47 @@ void unitTest_imgClass_dup_fetch_reg_deco_reg_exe_reg_mem_reg_wb()
 
 }
 
+void unitTest_imgClass_dup_vectorProcessor()
+{
+  //----------------------------------------------------Declarations
+  ImageManager imgManager;
+  VectorProcessor processor;
+  //---------------------------------------------------Parser Code
+  string nameOfFile, nameOfImg, nameOfResultingImage;
+  //nameOfFile = "SUMASIMPLE.txt";
+  //nameOfFile = "SHFCLF5.txt";
+  //nameOfFile = "SHFCRG5.txt";
+  //nameOfFile = "SHFLF1.txt";
+  nameOfFile = "SHFRG1.txt";
+  //nameOfFile = "XOR.txt";
+  nameOfImg = "lenah.data";
+  nameOfResultingImage = "result.data";
+  Parser* parser  = new Parser(nameOfFile);
+  parser->parse();
+  //----------------------------------------------------Get image
+
+  imgManager.readImage((char *)nameOfImg.c_str());
+
+  //----------------------------------------------------Set data memory
+
+  processor.setInstructionMemory(parser->instructions);
+  processor.setDataMemory(imgManager.getImageBuffer(),imgManager.getImgSize());
+
+  //-----------------------------------------------------Run the proccessor
+
+  processor.run(parser->totalInstructionsNumber);
+  //----------------------------------------------------Save resulting image
+
+  unsigned char* writeImageBuffer = (unsigned char*)calloc(imgManager.getImgSize(),sizeof(unsigned char));
+
+  for (int i = DATA_MEM_IMAGE_INIT_POSITION; i < DATA_MEM_IMAGE_INIT_POSITION + imgManager.getImgSize(); i++) {
+    writeImageBuffer[i] = processor.getDataMemory()[i];
+  }
+
+  imgManager.writeImage(writeImageBuffer,(char*)nameOfResultingImage.c_str());
+
+}
+
 
 void unitTest_parser_duplicate()
 {
@@ -682,6 +723,6 @@ int main()
 {
   //unitTest_parser_duplicate();
   //unitTest_img_dup_fetch_reg_deco_reg_exe_reg_mem_reg_wb();
-  unitTest_imgClass_dup_fetch_reg_deco_reg_exe_reg_mem_reg_wb();
+  unitTest_imgClass_dup_vectorProcessor();
 
 }
