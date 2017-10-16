@@ -102,7 +102,7 @@ void Execute::controlLogic(int OpCode)
 	}//Los Store
 	else if((OpCode == 7) || (OpCode == 8))
 	{
-		this->selData = 1;
+		this->selData = 0;
 		this->selWriteMem = true;
 	}//Los Loads
 	else if((OpCode == 9) | (OpCode == 10))

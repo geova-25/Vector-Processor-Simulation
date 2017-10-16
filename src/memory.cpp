@@ -33,7 +33,7 @@ void Memory::run(unsigned char* dinMemNew,unsigned char* Alu_ResultNew, int dir,
 	this->selWriteMem = selWriteMemNew;
 	if(this->selWriteMem && contador >= 2)
 	{
-		printf("-------\n\n\nSaving new value in mem:%s \n\n\n\n",dinMemNew);
+		//printf("-------\n\n\nSaving new value in mem:%s \n\n\n\n",dinMemNew);
 	  this->insertValueInMem(dir,dinMemNew);
 	}
 	for (int i = 0; i < SIZE_OF_DATA_IN_BYTES_M; i++)
@@ -43,7 +43,7 @@ void Memory::run(unsigned char* dinMemNew,unsigned char* Alu_ResultNew, int dir,
 		DinMem[i] = dinMemNew[i];
 	}
 	Do = getValueFromMem(dir);
-	printf("------------------------------------------------------------------------------------Do: %s\n", Do);
+	//printf("------------------------------------------------------------------------------------Do: %s\n", Do);
 
 }
 
@@ -144,5 +144,5 @@ void Memory::printMemoryDecimalValues(int t)
 		}
 
 	}
-
+printf("\n");
 }

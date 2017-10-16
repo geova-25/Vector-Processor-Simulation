@@ -3,7 +3,8 @@
 #include <iostream>
 using namespace std;
 
-#define SIZE_OF_DATA_IN_BYTES_MEM 4000000
+#define DATA_MEM_IMAGE_INIT_POSITION 0
+#define SIZE_OF_DATA_IN_BYTES_MEM 4001000
 #define SIZE_OF_DATA_IN_BYTES_M 8
 #define QUANTITY_OF_PRINTS_MEMORY 1000
 
