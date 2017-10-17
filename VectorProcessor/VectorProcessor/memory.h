@@ -26,9 +26,9 @@ class Memory
 		int selData;
 		bool selRegType;
 		bool selWriteMem;
+        int Addr;
+        unsigned char* DinMem;
 	private:
-		int Addr;
-		unsigned char* DinMem;
 		void printMemory(int dir);
 		void printMemoryDecimalValues(int t);
 };

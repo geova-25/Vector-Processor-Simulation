@@ -4,6 +4,9 @@ Execute::Execute()
 {
 	result = (unsigned char*)calloc(SIZE_OF_RESULT_BYTES,sizeof(unsigned char));
 	DinMD = (unsigned char*)calloc(SIZE_OF_RESULT_BYTES,sizeof(unsigned char));
+    OpVA = (unsigned char*)calloc(SIZE_OF_RESULT_BYTES,sizeof(unsigned char));
+    OpVB = (unsigned char*)calloc(SIZE_OF_RESULT_BYTES,sizeof(unsigned char));
+
 }
 
 void Execute::run(short OpCode, unsigned char * DoVA, unsigned char * DoVB, int DoSA, int DoSB, int ImmNew, short RgNew)
@@ -29,7 +32,10 @@ void Execute::run(short OpCode, unsigned char * DoVA, unsigned char * DoVB, int 
 	this->Imm = ImmNew;
 	this->OpDoSA = DoSA;
 	this->controlLogic(OpCode);
-
+    this->OpVA = DoVA;
+    this->OpVB = DoVB;
+    this->OpSA = DoSA;
+    this->OpSB = DoSB;
 
 	switch(OpCode)
 	{

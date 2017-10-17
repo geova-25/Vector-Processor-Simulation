@@ -22,10 +22,6 @@ class Write_Back
 
       void setScalarRegister(short direction, int data);
       void printData();
-  private:
-      void printVectorRegisters();
-      void printScalarRegisters();
-      void printVectorRegistersString();
       short Rg;
       unsigned char* DoDataMem;
       unsigned char* AluResult;
@@ -35,4 +31,9 @@ class Write_Back
       int selData;
       bool selRegType;
       bool selWriteMem;
+  private:
+      void printVectorRegisters();
+      void printScalarRegisters();
+      void printVectorRegistersString();
+
 };

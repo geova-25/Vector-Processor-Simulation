@@ -29,13 +29,26 @@ private slots:
     void on_pushButton_clicked();
 
 
+    void on_pushButton_2_clicked();
+
+    void on_pushButton_Exe_clicked();
+
+    void on_pushButton_Fetch_clicked();
+
+    void on_pushButton_Deco_clicked();
+
+    void on_pushButton_Mem_clicked();
+
+    void on_pushButton_WB_clicked();
+
 private:
     Ui::MainWindow *ui;
     int i;
-    bool fetchLabelVisibility;
-    bool decodeLabelVisibility;
-    bool executeLabelVisibility;
-    bool writeBackLabelVisibility;
+    bool fetchVisibility;
+    bool decoVisibility;
+    bool exeVisibility;
+    bool memVisibility;
+    bool wbVisibility;
 
 
 };

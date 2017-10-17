@@ -36,6 +36,10 @@ class Execute
 		bool selRegType;
 		bool selWriteMem;
 		unsigned char OpDoSA;
+        unsigned char* OpVA;
+        unsigned char* OpVB;
+        int OpSA;
+        int OpSB;
 	private:
 		Alu alu0;
 		Alu alu1;
