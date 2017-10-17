@@ -101,7 +101,14 @@ void unitTest_imgClass_dup_vectorProcessor()
 
 }
 
+void unitTest_Traslate()
+{
+  Parser parser;
+  parser.traslateFromAssembly("./Assembly_Codes/XOR.txt");
+}
+
 int main()
 {
-  unitTest_imgClass_dup_vectorProcessor();
+  //unitTest_imgClass_dup_vectorProcessor();
+  unitTest_Traslate();
 }
