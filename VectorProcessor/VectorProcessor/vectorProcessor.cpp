@@ -65,7 +65,7 @@ void VectorProcessor::run(int totalInstructionsNumber)
   vectorPrueba2[5] = 24;
   vectorPrueba2[6] = 255;
   vectorPrueba2[7] = 100;
-  decoder.setVectorRegister(0,vectorPrueba2);
+  //decoder.setVectorRegister(0,vectorPrueba2);
   //decoder.setVectorRegister(4,vectorPrueba1);
   //decoder.setScalarRegister(4,255);
   //decoder.setScalarRegister(5,200);
