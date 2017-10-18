@@ -24,8 +24,8 @@ void Execute::run(short OpCode, unsigned char * DoVA, unsigned char * DoVB, int 
   for (int i = 0; i < 8; ++i)
   {
     printf("%d ",DoVB[i]);
-  }*/
-   printf("\n");
+  }
+  printf("\n");*/
 	DinMD = DoVB;
 	AddrA = DoSA;
 	this->RgOutExe = RgNew;

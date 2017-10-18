@@ -26,12 +26,10 @@ public:
 
 private slots:
     void on_labelFetch_linkActivated(const QString &link);
+
     void getFetchData();
-    void on_pushButton_clicked();
 
     void getCicloMasUno();
-
-    void on_pushButton_2_clicked();
 
     void on_pushButton_Exe_clicked();
 

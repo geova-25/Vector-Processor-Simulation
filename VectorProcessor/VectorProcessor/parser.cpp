@@ -20,7 +20,7 @@ Parser::Parser(string nameOfFile)
   while (infile >> a)
   {
     instructions[counter] = a;
-    std::cout << counter << ": " << a << '\n';
+    //sstd::cout << counter << ": " << a << '\n';
     counter++;
   }
 }

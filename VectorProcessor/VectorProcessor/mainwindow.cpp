@@ -728,17 +728,6 @@ void MainWindow::setProcessor(VectorProcessor* newProc)
     processor = newProc;
 }
 
-void MainWindow::on_pushButton_clicked()
-{
-    //this->ui->LayoutExe->setVisible(this->fetchVisibility);
-    //this->fetchVisibility = !this->fetchVisibility;
-}
-
-void MainWindow::on_pushButton_2_clicked()
-{
-    //this->ui->LayoutExe->setVisible(this->fetchVisibility);
-    //this->fetchVisibility = !this->fetchVisibility;
-}
 
 void MainWindow::on_pushButton_Fetch_clicked()
 {
