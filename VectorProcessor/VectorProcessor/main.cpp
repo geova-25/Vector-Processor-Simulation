@@ -132,6 +132,7 @@ int main(int argc, char *argv[])
     //pthread_create(&threadRead,NULL,test,unused);
     w.show();
     a.exec();
+    exit(0);
     pthread_exit(NULL);
     return 0;
 }

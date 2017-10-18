@@ -34,7 +34,9 @@ void Memory::run(unsigned char* dinMemNew,unsigned char* Alu_ResultNew, int dir,
 	if(this->selWriteMem && contador >= 2)
 	{
 		//printf("-------\n\n\nSaving new value in mem:%s \n\n\n\n",dinMemNew);
-	  this->insertValueInMem(dir,dinMemNew);
+      if(selRegType == 0) memory[dir] = (char) AluResultScalarNew;
+      else this->insertValueInMem(dir,dinMemNew);
+
 	}
 	for (int i = 0; i < SIZE_OF_DATA_IN_BYTES_M; i++)
 	{

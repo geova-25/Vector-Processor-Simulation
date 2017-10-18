@@ -48,19 +48,32 @@ void VectorProcessor::run(int totalInstructionsNumber)
   decoder.setRegisters(VectorRegisters,ScalarRegisters);
   write_back.setRegisters(VectorRegisters,ScalarRegisters);
   unsigned char* vectorPrueba1 = (unsigned char*)calloc(8,sizeof(unsigned char));
-  vectorPrueba1[0] = 119;
-  vectorPrueba1[1] = 110;
-  vectorPrueba1[2] = 20;
-  vectorPrueba1[3] = 66;
-  vectorPrueba1[4] = 30;
-  vectorPrueba1[5] = 250;
-  vectorPrueba1[6] = 220;
-  vectorPrueba1[7] = 120;
-  decoder.setVectorRegister(0,vectorPrueba1);
+  vectorPrueba1[0] = 1;
+  vectorPrueba1[1] = 2;
+  vectorPrueba1[2] = 3;
+  vectorPrueba1[3] = 4;
+  vectorPrueba1[4] = 5;
+  vectorPrueba1[5] = 6;
+  vectorPrueba1[6] = 7;
+  vectorPrueba1[7] = 8;
+  unsigned char* vectorPrueba2 = (unsigned char*)calloc(8,sizeof(unsigned char));
+  vectorPrueba2[0] = 10;
+  vectorPrueba2[1] = 240;
+  vectorPrueba2[2] = 108;
+  vectorPrueba2[3] = 99;
+  vectorPrueba2[4] = 32;
+  vectorPrueba2[5] = 24;
+  vectorPrueba2[6] = 255;
+  vectorPrueba2[7] = 100;
+  //decoder.setVectorRegister(2,vectorPrueba2);
+  //decoder.setVectorRegister(4,vectorPrueba1);
+  //decoder.setScalarRegister(4,255);
+  //decoder.setScalarRegister(5,200);
   int contador = 0;
 
   while(contador <= totalInstructionsNumber)
   {
+
     //printf("\033[22;34m+++++++++++++++++++++++++New Iteration %d++++++++++++++++++++++++++++++++\033[0m \n",contador);
     //---------------------------------------------Part of the algorithm
     fetch.run();
@@ -73,14 +86,16 @@ void VectorProcessor::run(int totalInstructionsNumber)
     register_mem_wb.run(mem.Do,mem.Alu_result,mem.RgOutMemory,mem.AluResultScalar, mem.selData, mem.selRegType, mem.selWriteMem);
     write_back.run(register_mem_wb.DoDataMemoryOut,register_mem_wb.AluResultOut,register_mem_wb.AluResultScalarOut,register_mem_wb.RgOut,register_mem_wb.selDataOut,register_mem_wb.selRegTypeOut,register_mem_wb.selWriteMemOut ,contador);
 
-    usleep(1000000);
+
     //-----------------Prints--------------
     /*this->printValues();
     */
     //-----------------Change Registers
+    //usleep(1000000);
     this->refreshRegisters();
     //-----------------Others
     contador = contador + 1;
+    mem.printMemoryDecimalValues(1);
   }
   printf("----------------------------Image Processed-----------------------------\n");
 }

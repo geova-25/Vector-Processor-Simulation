@@ -143,6 +143,7 @@ public:
     QLabel *label_20;
     QLabel *label_21;
     QLabel *label_25;
+    QLabel *label_50;
     QVBoxLayout *verticalLayout_9;
     QLabel *label_exeSelData;
     QLabel *label_exeSelReg;
@@ -158,6 +159,7 @@ public:
     QLabel *label_exeSave_6;
     QLabel *label_exeSave_7;
     QLabel *label_exeRg;
+    QLabel *label_exeImm;
     QPushButton *pushButton_Exe;
     QLabel *label_4;
     QLabel *label_42;
@@ -352,6 +354,8 @@ public:
     QLabel *label_RgWB;
     QPushButton *pushButton_WB;
     QLabel *label_5;
+    QLabel *label_29;
+    QLabel *label_ciclo;
     QMenuBar *menuBar;
     QToolBar *mainToolBar;
     QStatusBar *statusBar;
@@ -360,7 +364,7 @@ public:
     {
         if (MainWindow->objectName().isEmpty())
             MainWindow->setObjectName(QStringLiteral("MainWindow"));
-        MainWindow->resize(1834, 640);
+        MainWindow->resize(1834, 683);
         QSizePolicy sizePolicy(QSizePolicy::Maximum, QSizePolicy::Maximum);
         sizePolicy.setHorizontalStretch(0);
         sizePolicy.setVerticalStretch(0);
@@ -374,7 +378,7 @@ public:
         centralWidget->setMinimumSize(QSize(1800, 0));
         horizontalLayoutWidget = new QWidget(centralWidget);
         horizontalLayoutWidget->setObjectName(QStringLiteral("horizontalLayoutWidget"));
-        horizontalLayoutWidget->setGeometry(QRect(0, 30, 1831, 252));
+        horizontalLayoutWidget->setGeometry(QRect(0, 30, 1831, 288));
         horizontalLayout = new QHBoxLayout(horizontalLayoutWidget);
         horizontalLayout->setSpacing(6);
         horizontalLayout->setContentsMargins(11, 11, 11, 11);
@@ -959,6 +963,11 @@ public:
 
         verticalLayout_8->addWidget(label_25);
 
+        label_50 = new QLabel(widget_exe);
+        label_50->setObjectName(QStringLiteral("label_50"));
+
+        verticalLayout_8->addWidget(label_50);
+
 
         horizontalLayout_13->addLayout(verticalLayout_8);
 
@@ -1036,6 +1045,11 @@ public:
 
         verticalLayout_9->addWidget(label_exeRg);
 
+        label_exeImm = new QLabel(widget_exe);
+        label_exeImm->setObjectName(QStringLiteral("label_exeImm"));
+
+        verticalLayout_9->addWidget(label_exeImm);
+
 
         horizontalLayout_13->addLayout(verticalLayout_9);
 
@@ -1072,7 +1086,7 @@ public:
         label_42->setStyleSheet(QStringLiteral("color: rgb(85, 0, 0);"));
         label_43 = new QLabel(centralWidget);
         label_43->setObjectName(QStringLiteral("label_43"));
-        label_43->setGeometry(QRect(720, 0, 81, 16));
+        label_43->setGeometry(QRect(720, 10, 81, 16));
         QFont font1;
         font1.setPointSize(11);
         font1.setBold(true);
@@ -1087,17 +1101,17 @@ public:
         label_44->setStyleSheet(QStringLiteral("color: rgb(0, 170, 127);"));
         label_45 = new QLabel(centralWidget);
         label_45->setObjectName(QStringLiteral("label_45"));
-        label_45->setGeometry(QRect(160, 290, 59, 14));
+        label_45->setGeometry(QRect(240, 320, 59, 20));
         label_45->setFont(font);
         label_45->setStyleSheet(QStringLiteral("color: rgb(255, 85, 127);"));
         label_46 = new QLabel(centralWidget);
         label_46->setObjectName(QStringLiteral("label_46"));
-        label_46->setGeometry(QRect(810, 290, 111, 20));
+        label_46->setGeometry(QRect(810, 320, 111, 20));
         label_46->setFont(font);
         label_46->setStyleSheet(QStringLiteral("color: rgb(85, 85, 127);"));
         horizontalLayoutWidget_23 = new QWidget(centralWidget);
         horizontalLayoutWidget_23->setObjectName(QStringLiteral("horizontalLayoutWidget_23"));
-        horizontalLayoutWidget_23->setGeometry(QRect(0, 310, 581, 271));
+        horizontalLayoutWidget_23->setGeometry(QRect(10, 350, 581, 271));
         horizontalLayout_24 = new QHBoxLayout(horizontalLayoutWidget_23);
         horizontalLayout_24->setSpacing(6);
         horizontalLayout_24->setContentsMargins(11, 11, 11, 11);
@@ -1392,7 +1406,7 @@ public:
 
         verticalLayoutWidget_25 = new QWidget(centralWidget);
         verticalLayoutWidget_25->setObjectName(QStringLiteral("verticalLayoutWidget_25"));
-        verticalLayoutWidget_25->setGeometry(QRect(1310, 340, 521, 172));
+        verticalLayoutWidget_25->setGeometry(QRect(1300, 430, 521, 172));
         verticalLayout_22 = new QVBoxLayout(verticalLayoutWidget_25);
         verticalLayout_22->setSpacing(6);
         verticalLayout_22->setContentsMargins(11, 11, 11, 11);
@@ -1768,17 +1782,17 @@ public:
 
         label_48 = new QLabel(centralWidget);
         label_48->setObjectName(QStringLiteral("label_48"));
-        label_48->setGeometry(QRect(1430, 310, 181, 20));
+        label_48->setGeometry(QRect(1430, 370, 181, 20));
         label_48->setFont(font);
         label_48->setStyleSheet(QStringLiteral("color: rgb(0, 0, 0);"));
         label_49 = new QLabel(centralWidget);
         label_49->setObjectName(QStringLiteral("label_49"));
-        label_49->setGeometry(QRect(1060, 310, 181, 20));
+        label_49->setGeometry(QRect(1060, 370, 181, 20));
         label_49->setFont(font);
         label_49->setStyleSheet(QStringLiteral("color: rgb(0, 0, 0);"));
         verticalLayoutWidget_26 = new QWidget(centralWidget);
         verticalLayoutWidget_26->setObjectName(QStringLiteral("verticalLayoutWidget_26"));
-        verticalLayoutWidget_26->setGeometry(QRect(1290, 340, 21, 171));
+        verticalLayoutWidget_26->setGeometry(QRect(1280, 430, 21, 171));
         verticalLayout_23 = new QVBoxLayout(verticalLayoutWidget_26);
         verticalLayout_23->setSpacing(6);
         verticalLayout_23->setContentsMargins(11, 11, 11, 11);
@@ -1826,7 +1840,7 @@ public:
 
         horizontalLayoutWidget_36 = new QWidget(centralWidget);
         horizontalLayoutWidget_36->setObjectName(QStringLiteral("horizontalLayoutWidget_36"));
-        horizontalLayoutWidget_36->setGeometry(QRect(1100, 340, 81, 201));
+        horizontalLayoutWidget_36->setGeometry(QRect(1100, 400, 81, 201));
         horizontalLayout_38 = new QHBoxLayout(horizontalLayoutWidget_36);
         horizontalLayout_38->setSpacing(6);
         horizontalLayout_38->setContentsMargins(11, 11, 11, 11);
@@ -1926,7 +1940,7 @@ public:
 
         verticalLayoutWidget_11 = new QWidget(centralWidget);
         verticalLayoutWidget_11->setObjectName(QStringLiteral("verticalLayoutWidget_11"));
-        verticalLayoutWidget_11->setGeometry(QRect(670, 320, 361, 267));
+        verticalLayoutWidget_11->setGeometry(QRect(670, 350, 361, 267));
         verticalLayout_27 = new QVBoxLayout(verticalLayoutWidget_11);
         verticalLayout_27->setSpacing(6);
         verticalLayout_27->setContentsMargins(11, 11, 11, 11);
@@ -2051,31 +2065,23 @@ public:
 
         label_5 = new QLabel(centralWidget);
         label_5->setObjectName(QStringLiteral("label_5"));
-        label_5->setGeometry(QRect(600, 310, 61, 261));
+        label_5->setGeometry(QRect(600, 360, 61, 261));
         label_5->setAutoFillBackground(false);
         label_5->setStyleSheet(QLatin1String("background-color: rgb(120, 120, 120);\n"
 ""));
+        label_29 = new QLabel(centralWidget);
+        label_29->setObjectName(QStringLiteral("label_29"));
+        label_29->setGeometry(QRect(980, 0, 91, 31));
+        QFont font2;
+        font2.setPointSize(16);
+        label_29->setFont(font2);
+        label_29->setStyleSheet(QStringLiteral("color: rgb(255, 0, 0);"));
+        label_ciclo = new QLabel(centralWidget);
+        label_ciclo->setObjectName(QStringLiteral("label_ciclo"));
+        label_ciclo->setGeometry(QRect(1040, 0, 59, 31));
+        label_ciclo->setFont(font2);
+        label_ciclo->setStyleSheet(QStringLiteral("color: rgb(255, 0, 0);"));
         MainWindow->setCentralWidget(centralWidget);
-        horizontalLayoutWidget->raise();
-        labelRp->raise();
-        label_exeDir->raise();
-        label_21->raise();
-        label_20->raise();
-        label_42->raise();
-        label_43->raise();
-        label_44->raise();
-        label_45->raise();
-        label_46->raise();
-        horizontalLayoutWidget_23->raise();
-        label_RegV4_5->raise();
-        verticalLayoutWidget_25->raise();
-        label_48->raise();
-        label_49->raise();
-        verticalLayoutWidget_26->raise();
-        horizontalLayoutWidget_36->raise();
-        LabelMemAluResult_1->raise();
-        verticalLayoutWidget_11->raise();
-        label_5->raise();
         menuBar = new QMenuBar(MainWindow);
         menuBar->setObjectName(QStringLiteral("menuBar"));
         menuBar->setGeometry(QRect(0, 0, 1834, 19));
@@ -2171,6 +2177,7 @@ public:
         label_20->setText(QApplication::translate("MainWindow", "Address:", 0));
         label_21->setText(QApplication::translate("MainWindow", "Data to save:", 0));
         label_25->setText(QApplication::translate("MainWindow", "Rg:", 0));
+        label_50->setText(QApplication::translate("MainWindow", "Inmediato:", 0));
         label_exeSelData->setText(QApplication::translate("MainWindow", "0", 0));
         label_exeSelReg->setText(QApplication::translate("MainWindow", "0", 0));
         label_exeSelMem->setText(QApplication::translate("MainWindow", "0", 0));
@@ -2184,6 +2191,7 @@ public:
         label_exeSave_6->setText(QApplication::translate("MainWindow", "0", 0));
         label_exeSave_7->setText(QApplication::translate("MainWindow", "0", 0));
         label_exeRg->setText(QApplication::translate("MainWindow", "0", 0));
+        label_exeImm->setText(QApplication::translate("MainWindow", "0", 0));
         pushButton_Exe->setText(QApplication::translate("MainWindow", "Show/Hide Execution Signals", 0));
         label_4->setText(QString());
         label_42->setText(QApplication::translate("MainWindow", "FETCH", 0));
@@ -2340,6 +2348,8 @@ public:
         label_RgWB->setText(QApplication::translate("MainWindow", "0", 0));
         pushButton_WB->setText(QApplication::translate("MainWindow", "Show/Hide Write Back Signals", 0));
         label_5->setText(QString());
+        label_29->setText(QApplication::translate("MainWindow", "Ciclo: ", 0));
+        label_ciclo->setText(QApplication::translate("MainWindow", "1", 0));
     } // retranslateUi
 
 };

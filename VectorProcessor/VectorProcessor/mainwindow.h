@@ -21,6 +21,7 @@ public:
     static void* threadTest(void*);
     VectorProcessor* processor;
     void setProcessor(VectorProcessor* newProc);
+    int ciclo;
 
 
 private slots:
@@ -28,6 +29,7 @@ private slots:
     void getFetchData();
     void on_pushButton_clicked();
 
+    void getCicloMasUno();
 
     void on_pushButton_2_clicked();
 

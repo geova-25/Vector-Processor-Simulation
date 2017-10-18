@@ -25,16 +25,30 @@ MainWindow::MainWindow(QWidget *parent) :
     this->exeVisibility = false;
     this->memVisibility = false;
     this->wbVisibility = false;
+    this->ciclo = 1;
+
 
     ui->setupUi(this);
     //Execute each 1000 seconds this code
     QTimer *timer = new QTimer(this);
     connect(timer, SIGNAL(timeout()), this, SLOT(getFetchData()));
-    timer->start(10);
+    timer->start();
+
+    QTimer *cimer = new QTimer(this);
+    connect(cimer, SIGNAL(timeout()), this, SLOT(getCicloMasUno()));
+    cimer->start(7000);
     i = 0;
     pthread_t t;
     pthread_create(&t,NULL,threadTest,&processor);
 
+}
+
+void MainWindow::getCicloMasUno()
+{
+    ciclo++;
+    QString cicloLabel = QString::number(ciclo);
+    this->ui->label_ciclo->setText(cicloLabel);
+    this->ui->label_ciclo->repaint();
 }
 
 MainWindow::~MainWindow()
@@ -57,6 +71,10 @@ void MainWindow::getFetchData()
 {
 
     //----------------------------------------------------------------------Exe
+
+    QString exeImm = QString::number(processor->execute.Imm);
+    this->ui->label_exeImm->setText(exeImm);
+    this->ui->label_exeImm->repaint();
 
     QString exeOpSA = QString::number(processor->execute.OpSA);
     QString exeOpSB = QString::number(processor->execute.OpSB);
@@ -636,6 +654,7 @@ void MainWindow::getFetchData()
 
     QString decoDOAScalar = QString::number(processor->decoder.DoSA);
     QString decoDOBScalar = QString::number(processor->decoder.DoSB);
+    QString decoImm = QString::number(processor->decoder.Imm);
     QString decoRg = QString::number(processor->decoder.RgDecoOut); //Para numeros
     QString decoRs = QString::number(processor->fetch_decoder_register.RvsDo); //Para numeros
     QString decoRp = QString::number(processor->fetch_decoder_register.RvpDo);
@@ -647,6 +666,8 @@ void MainWindow::getFetchData()
     this->ui->labelRs->setText(decoRs);
     this->ui->labelRp->setText(decoRp);
     this->ui->labelRg->setText(decoRg);
+    this->ui->LabelImmDeco->setText(decoImm);
+    this->ui->LabelImmDeco->repaint();
     //-------OUT REGISTERS
     //---Scalar
     this->ui->label_decoDoAScalar->setText(decoDOAScalar);

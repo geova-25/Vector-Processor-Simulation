@@ -37,6 +37,7 @@ void Write_Back::run(unsigned char* DoDataMemNew,unsigned char* AluResultNew,
     }
     else
     {
+      //if(selWriteMemNew == 1) this->setScalarRegister(RgNew,this->DoDataMem[0]);
       this->setScalarRegister(RgNew,this->AluResultScalar);
     }
   }

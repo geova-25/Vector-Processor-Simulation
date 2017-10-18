@@ -19,13 +19,18 @@ void Decoder::setRegisters(unsigned char* vectorRegistersNew,unsigned int* scala
 
 void Decoder::run(short OpDo, short FDo, short RvgDo, short RvsDo, short RvpDo, int ImmNumDo)
 {
-	DoVA = getVectorRegisterA(RvsDo);
-	DoVB = getVectorRegisterB(RvpDo);
+    for (int i = 0; i < 8; ++i)
+    {
+        DoVA[i] = vectorRegisters[RvsDo*8 + i];
+        DoVB[i] = vectorRegisters[RvpDo*8 + i];
+    }
+    //DoVA = getVectorRegisterA(RvsDo);
+    //DoVB = getVectorRegisterB(RvpDo);
 	DoSA = getScalarRegister(RvsDo);
 	DoSB = getScalarRegister(RvpDo);
 	Imm  = ImmNumDo;
 	RgDecoOut = RvgDo;
-	OpDout = OpDo;
+    OpDout = OpDo;
 }
 
 void Decoder::printDout()

@@ -28,7 +28,8 @@ class Memory
 		bool selWriteMem;
         int Addr;
         unsigned char* DinMem;
+        void printMemoryDecimalValues(int t);
 	private:
 		void printMemory(int dir);
-		void printMemoryDecimalValues(int t);
+
 };

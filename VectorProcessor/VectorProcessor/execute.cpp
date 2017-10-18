@@ -71,6 +71,9 @@ void Execute::run(short OpCode, unsigned char * DoVA, unsigned char * DoVB, int 
             //printf("Storing vector scalars\n");
 			this->result = DoVB;
 			break;
+        case 8:
+            this->resultScalar = DoSB;
+            break;
 		case 9:
             //printf("Loading vector \n");
 			this->result = DoVB;
@@ -124,7 +127,7 @@ void Execute::controlLogic(int OpCode)
 		this->selWriteMem = false;
 	}
 
-	if((OpCode == 5) || (OpCode == 6) || (OpCode == 10) || (OpCode == 11))
+    if((OpCode == 5) || (OpCode == 6) || (OpCode == 10) || (OpCode == 8) || (OpCode == 11))
 	{
 		//0 is Scalar
 			this->selRegType = false;
